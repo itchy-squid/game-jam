@@ -1,6 +1,7 @@
 ﻿# Declare characters used by this game. The color argument colorizes the name of the character.
 
-define think = Character(None, what_italic=True, what_color="#c0c0c0")
+define act = Character(None, what_italic=True, what_color="#c0c0c0")
+define describe = Character(None, what_itelic=True, what_prefix="(", what_suffix=")")
 define who = Character("???")
 define r = Character("Kaitlyn")
 define hb = Character("Heavy Bid")
@@ -39,6 +40,12 @@ by the authors."""
     think "I've worked so hard to get here."
     think "The interview process alone took a year."
     think "I'll just have to do my best!"
+    act "A tiny green bird flutters by and lands on a nearby bench."
+    
+    show hurdybirb at right
+    
+    who "*chirp* *chirp*"
+    
 
     show receptionist at left
 
@@ -46,10 +53,21 @@ by the authors."""
     "I am."
     who "What are you specializing in?"
     "I'm studying database administration."
-    who "Oh, that sounds difficult!"
-    who "I didn't even know that was an option at HCSSHS."
-    who "By the way, my name is Kaitlyn! Nice to meet you."
-    r "By the way, my name is Kaitlyn! Nice to meet you."
+    who "Oh, that sounds difficult! What made you decide to study at HCSSHS?"
+    "This school is famous among database administrators!"
+    "They don't just teach you how to manage one database here -- you're thrown into a sea of them." 
+    "With hundreds of databases running simultaneously, the school's infrastructure is a beast. You don't just learn theory here -- you're thrown right into the fire."
+    "The systems are complex, constantly changing, and the only way to keep up is to be better than anyone else. Failure's not an option."
+    act "The student raises an eyebrow, clearly impressed by what she's just heard."
+    who "Wow, sounds intense! I knew our program was tough, but I didn't realize it was {i}that{i} demanding. Well, I hope you're ready for the challenge!"
+    act "She smiles and extends a hand in greeting"
+    who "By the way, my name is Kaitlyn!" 
+    r "By the way, my name is Kaitlyn!"
+    r "I usually help out the student council."
+    act "We shake hands, then she motions towards a hallway."
+    "It's nice to meet you!"
+    r "I'm in charge of greeting new students. Let me take you to the Development building."
+
 
     scene receptionist_desk
     show receptionist at left
