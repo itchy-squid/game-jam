@@ -70,10 +70,14 @@ by the authors."""
 	show hurdybirb at right
     who "*chirp* *chirp*"
 	act "Its colorful feathers catch the light as it hops around. I can't help but smile before catching my breath to step inside."
-	
-	scene cluster
-	
-	
-	
+
+	scene cluster with hpunch
+	show heavybid at left
+	who "AAAAAGGHHHHhhhh, it doesn't make sense!"
+	who "There's a five cent difference between these estimates. These numbers don't line up!"
+	act "As I step into my first class, a raised voice overtakes me."
+	act "A girl in the corner, surrounded by loose papers, "
+	show heavyjob at right
+	who "Maybe there were unplanned expenses?"
 	
     return
