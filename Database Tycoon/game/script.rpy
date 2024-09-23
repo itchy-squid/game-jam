@@ -114,7 +114,7 @@ by the authors."""
     act "A tiny, green bird, no bigger than my hand, swoops down from a nearby branch. It lands a few feet in front of me, its head tilted curiously, watching the ground intently." 
     birb "*chirp* *chirp*"
     act "Its colorful feathers catch the light as it hops around."
-    act "Wondering at the little bird, I pause for a moment, and can't help but smile before catching my breath to step inside."
+    act "Wondering at the little bird, I pause for a moment, and can't help but smile before catching my breath to enter the building."
 
     scene dev building
     show heavybid frustrated at left
@@ -127,8 +127,12 @@ by the authors."""
     hb "Not when the numbers are this precise! Every penny should be accounted for."
     hj "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
     act "The girl in green pauses, narrowing her eyes"
-    hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- it all lines up."
-    act "She pauses briefly, gritting her teeth."
-    hb "Except for those five cents."
-    
+    hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- everything."
+    hb "It all lines up. Everything except for those five cents."
+    think "This conversation isn't really my business. I'd better get moving before I'm late for my first class."
+
+    scene cluster
+    pause(1)
+
+    # act "I take an empty seat."
     return
