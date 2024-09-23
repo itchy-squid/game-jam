@@ -113,15 +113,22 @@ by the authors."""
     pause(0.5)
     act "A tiny, green bird, no bigger than my hand, swoops down from a nearby branch. It lands a few feet in front of me, its head tilted curiously, watching the ground intently." 
     birb "*chirp* *chirp*"
-    act "Its colorful feathers catch the light as it hops around. I can't help but smile before catching my breath to step inside."
+    act "Its colorful feathers catch the light as it hops around."
+    act "Wondering at the little bird, I pause for a moment, and can't help but smile before catching my breath to step inside."
 
-    scene cluster
+    scene dev building
     show heavybid frustrated at left
     hb "AAAAAGGHHHHhhhh, it doesn't make sense!" with hpunch
-    act "As I step into my first class, I'm greeted by a raised voice."
-    hb "There's a five cent difference between these estimates. These numbers don't line up!"
-    # act "A girl in the corner, surrounded by loose papers, "
+    act "As I step into the building, I'm greeted by a raised voice from a passing student."
+    hb "There's a five-cent discrepancy! I've recalculated this three times. Every. Single. Time."
+    act "The girl next to her fidgets nervously"
     show heavyjob concerned at right
-    hj "Maybe there were unplanned expenses?"
+    hj "Five cents? I mean... it's pretty small. Couldn't that be from an unplanned expense?"
+    hb "Not when the numbers are this precise! Every penny should be accounted for."
+    hj "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
+    act "The girl in green pauses, narrowing her eyes"
+    hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- it all lines up."
+    act "She pauses briefly, gritting her teeth."
+    hb "Except for those five cents."
     
     return
