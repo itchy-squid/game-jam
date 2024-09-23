@@ -57,14 +57,14 @@ by the authors."""
     pause
     hide text
 
-    scene bedroom with Pixellate(2.0,5)
+    scene bedroom #with Pixellate(2.0,5)
     pause
 
     think "What time is it?"
     think "Oh right, today is my first day. I'm really nervous..."
     think "I guess I'd better get ready."
 
-    scene entrance with pixellate
+    scene entrance #with pixellate
 
     think "I can't believe I'm finally here!"
     think "It's my first day at Heavy Construction Systems Specialists High School. They call it HCSSHS for short."
@@ -107,21 +107,21 @@ by the authors."""
     
     scene walkway
     
-    act "As I make my way to my first class, something small flutters into view."
+    act "As I make my way to class, something small flutters into view."
     pause(0.5)
     show birb smoll
     pause(0.5)
     act "A tiny, green bird, no bigger than my hand, swoops down from a nearby branch. It lands a few feet in front of me, its head tilted curiously, watching the ground intently." 
     birb "*chirp* *chirp*"
     act "Its colorful feathers catch the light as it hops around."
-    act "Wondering at the little bird, I pause for a moment, and can't help but smile before catching my breath to enter the building."
+    act "Wondering at the little bird, I pause for a moment. I can't help but smile before catching my breath to enter the building."
 
     scene dev building
     show heavybid frustrated at left
     hb "AAAAAGGHHHHhhhh, it doesn't make sense!" with hpunch
-    act "As I step into the building, I'm greeted by a raised voice from a passing student."
+    act "As I step inside, I'm greeted by a raised voice from a passing student."
     hb "There's a five-cent discrepancy! I've recalculated this three times. Every. Single. Time."
-    act "The girl next to her fidgets nervously"
+    act "A small girl next to her fidgets nervously"
     show heavyjob concerned at right
     hj "Five cents? I mean... it's pretty small. Couldn't that be from an unplanned expense?"
     hb "Not when the numbers are this precise! Every penny should be accounted for."
