@@ -184,8 +184,8 @@ label after_first_class:
 	say "Hurdy?"
 	r "Hurdy Birb. That's his name. Well, that's what everyone calls him anyway."
 	$ birb_name = "Hurdy Birb"
+	say "Oh, I didn't know the bird had a name."
 	birb "*chirp* *chirp*"
-	say "Oh, I didn't know the bird had a name... or that anyone else had even noticed him."
 	say "Hi, [birb_name]."
 	r "He likes to hang around campus. I'm just glad the alligator isn't still around..."
 	act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
