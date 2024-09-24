@@ -24,7 +24,7 @@ init python:
 
 # Declare characters used by this game. The color argument colorizes the name of the character.
 define say = Character("[player_name]", what_color="#ffffff")
-define act = Character(None, what_color="#c0c0c0", what_italic=True, what_prefix="(", what_suffix=")")
+define act = Character(None, what_color="#c0c0c0", what_italic=True)#, what_prefix="(", what_suffix=")")
 define think = Character(None, what_color="#c0c0c0", what_italic=True)
 
 define r = Character("[r_name]", color="#FFFF00")
@@ -40,7 +40,7 @@ default hj_name = "???"
 default birb_name = "???"
 default sf_name = "???"
 
-default investigated_birb = False
+default investigated = False
 
 image birb smoll = Image("hurdybirb.png", xalign = 0.9, yalign = 0.7)
 
@@ -50,8 +50,8 @@ label splashscreen:
 
 # The game starts here.
 label start:
-	jump legal
-	
+    jump legal
+    
 label legal:
     scene black
     with Pause(1)
@@ -64,8 +64,8 @@ its affiliates cannot be held responsible for any content or actions taken
 by the authors."""
     pause
     hide text
-	jump intro
-	
+    jump intro
+    
 label intro:
     scene bedroom #with Pixellate(2.0,5)
     pause
@@ -73,7 +73,7 @@ label intro:
     think "What time is it?"
     think "Oh right, today is my first day. I'm really nervous..."
     think "I guess I'd better get ready."
-	
+    
     scene entrance #with pixellate
 
     think "I can't believe I'm finally here!"
@@ -81,19 +81,20 @@ label intro:
     think "I hope I can keep those letters straight."
     think "I've worked so hard to get here. The interview process alone took a year."
     think "I'll just have to do my best!"
-	jump check_in
-	
+    jump check_in
+    
 label check_in:
     scene receptionist_desk
     act "As I open the door to step inside, I'm greeted by a young woman behind a desk."
     show receptionist
+    pause(0.5)
 
     r "Hi! I don't think I've seen you before. What's your name?"
     $ player_name = get_player_name("What is your name?")
 
     # Provide a default name if the player doesn't enter one
     if player_name == "":
-        r "Oh, hmm.... That name is a bit difficult." 
+        r "Oh, hmm.... I'm not sure our system can handle that name." 
         r "We'll call you Michael."
         $ player_name = "Michael"
     else:
@@ -101,7 +102,7 @@ label check_in:
 
     say "Today is my first day. I was told to check in and pick up my class schedule?"
     r "Absolutely! I should have your forms here, if you give me a minute. What are you specializing in?"
-    say "I'm studying database administration."
+    say "I'm studying database administration. "
     r "That sounds difficult. What made you decide to study at HCSSHS?"
     say "The program is unmatched. They don't just teach you how to manage one database -- you're thrown into a sea of them." 
     say "With hundreds running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
@@ -110,11 +111,12 @@ label check_in:
     act "She smiles and hands me a stack of papers."
     r "By the way, my name is Kaitlyn!"
     $ r_name = "Kaitlyn"
+    r "By the way, my name is Kaitlyn!"
     r "I usually help out the student council. I'm in charge of greeting new students."
     act "She motions towards a hallway."
     r "Your first class is in the Development building, just behind the main building. Follow the path on the left and head out the side door. You’ll see it straight ahead."
-   	jump meet_birb
-	
+    jump meet_birb
+    
 label meet_birb:
     scene walkway
     
@@ -125,25 +127,26 @@ label meet_birb:
     act "A tiny, green bird, no bigger than my hand, swoops down from a nearby branch. It lands a few feet in front of me, its head tilted, watching the ground intently." 
     birb "*chirp* *chirp*"
     act "In the distance, the school bell rings — a reminder that class is starting soon."
-	
+    
+    think "What should I do?"
     menu:
         "Observe the bird":
-			$ investigated = True
-			act "Wondering at the little bird, I pause for a moment."
+            $ investigated = True
+            act "Wondering at the little bird, I pause for a moment."
             act "Its colorful feathers catch the light as it hops around, completely unaware of the world rushing by."
             act "I can't help but smile before catching my breath to continue on my way."
             jump first_class
 
         "Hurry to class":
-			act "As much as I'd like to stay, I shake off my moment of distraction."
+            act "As much as I'd like to stay, I shake off my moment of distraction."
             think "I can't afford to be late on my first day."
             jump first_class
-	
+    
 label first_class:
     scene dev building
     show heavybid frustrated at left
     hb "AAAAAGGHHHHhhhh, it doesn't make sense!" with hpunch
-    act "As I step inside, I'm greeted by a raised voice from a passing student."
+    act "As I step inside the Dev building, I'm greeted by a raised voice from a passing student."
     hb "There's a five-cent discrepancy! I've recalculated this three times. Every. Single. Time."
     act "A small girl next to her fidgets nervously"
     show heavyjob concerned at right
@@ -158,43 +161,54 @@ label first_class:
     scene cluster
     pause(1)
 
-	# TODO
-	act "The next few hours passed in a blur of lectures and note-taking. Before I knew it, classes had ended."
-	
+    # act "I step inside, scanning the room. The hum of computers and an overpowered AC fills the air. I grab an empty seat near the back."
+    # show powershell at right
+    # act "As I settle in, the girl in the seat next to me shoots me a glance — cold, sharp. She has already decided I’m a waste of her time. Her fingers fly across her keyboard, barely pausing as she turns back to her screen."
+    # hide powershell
+    # show professor at center
+    # pause(1)
+
+    # TODO
+    act "The next few hours pass in a blur of lectures and note-taking. Before I know it, classes have ended."
+    
     jump after_first_class
-	
+    
 label after_first_class:
-	scene walkway
-	act "As I step out of the building, a familiar figure catches my eye, this time perching in a young tree."
-	show birb smoll at right
-	pause(1)
-	
-	if investigated:
-		think "I can't quite put my finger on it, but something about the bird seems different."
-		think "But then again, I've just had a very long day. I still need to go home and review my notes before I can relax."
-		
-	r "Cute, isn't he?"
-	act "I hear laughter and startle slightly, not realizing someone else had been watching me."
-	
-	show receptionist at left
-	
-	r "He's kind of like our little mascot."
-	act "She points to the bird, who hops around happily."
-	r "I come out here to watch Hurdy all the time."
-	say "Hurdy?"
-	r "Hurdy Birb. That's his name. Well, that's what everyone calls him anyway."
-	$ birb_name = "Hurdy Birb"
-	say "Oh, I didn't know the bird had a name."
-	birb "*chirp* *chirp*"
-	say "Hi, [birb_name]."
-	r "He likes to hang around campus. I'm just glad the alligator isn't still around..."
-	act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
-	jump first_night
-	
+    scene walkway
+    act "As I step out of the building, a familiar figure catches my eye, this time perching in a young tree."
+    show birb smoll
+    pause(1)
+    
+    if investigated:
+        think "I can't quite put my finger on it, but something about the bird seems different."
+        think "But then again, I've just had a very long day. I still need to go home and review my notes before I can relax."
+        act "I hear laughter and startle slightly, not realizing someone else had been watching me."
+        
+    r "Cute, isn't he?"
+    act "[r_name] steps out from behind me smiling at the tiny bird, who hops around merrily."
+
+    show receptionist at left
+    
+    r "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
+    say "Hurdy?"
+    r "Hurdy Birb. That's his name. Well, that's what everyone calls him anyway."
+    $ birb_name = "Hurdy Birb"
+    say "Oh, I didn't know the bird had a name."
+    birb "*chirp* *chirp*"
+    say "Hi, [birb_name]."
+    r "He likes to hang around campus. I'm just glad the alligator isn't still around..."
+    act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
+
+    # TODO
+
+    jump first_night
+    
 label first_night:
     scene bedroom
-	think "My first day... It was overwhelming but exciting."
-	act "As I lie in bed, my mind buzzing with new information and faces, the weight of the day pulls at my eyelids. Slowly, the world fades, and I drift into sleep."
-	hide bedroom
-	pause(1)
-	return
+    think "My first day... It was overwhelming but exciting."
+    act "As I lie in bed, my mind buzzing with new information and faces, the weight of the day pulls at my eyelids. Slowly, the world fades, and I drift into sleep."
+        
+    scene black with fade
+    pause(1)
+
+    return
