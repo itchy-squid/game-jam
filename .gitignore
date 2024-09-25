@@ -29,7 +29,4 @@ log.txt
 errors.txt 
 traceback.txt
 
-*.png
-*.jpeg
-
 *-dists/*

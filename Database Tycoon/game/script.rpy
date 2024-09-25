@@ -21,24 +21,30 @@ init python:
 # hj: https://cdn.midjourney.com/d922501c-e707-45c2-80f6-d1643217c5b4/0_1.png
 # 
 # birb: https://cdn.midjourney.com/fa34cb9e-da8d-4e06-b6c7-e08adbbde87f/0_1.png
+#
+# platform: https://cdn.midjourney.com/cc5a4c41-2885-489d-8c13-ae9771a5386b/0_1.png
+# 
 
 # Declare characters used by this game. The color argument colorizes the name of the character.
 define say = Character("[player_name]", what_color="#ffffff")
 define act = Character(None, what_color="#c0c0c0", what_italic=True)#, what_prefix="(", what_suffix=")")
-define think = Character(None, what_color="#c0c0c0", what_italic=True)
+define think = Character("[player_name]", what_color="#c0c0c0", what_italic=True)
 
 define r = Character("[r_name]", color="#FFFF00")
 define hb = Character("[hb_name]", color="#009639")
 define hj = Character("[hj_name]", color="#005eb8")
 define birb = Character("[birb_name]", color="#009639")
 define sf = Character("[sf_name]", color="")
+define p = Character("[p_name]", color="#8A2BE2")
 
 default player_name = ""
-default r_name = "???"
+
+default birb_name = "???"
 default hb_name = "???"
 default hj_name = "???"
-default birb_name = "???"
 default sf_name = "???"
+default p_name = "???"
+default r_name = "???"
 
 default investigated = False
 
@@ -89,7 +95,10 @@ label check_in:
     show receptionist
     pause(0.5)
 
-    r "Hi! I don't think I've seen you before. What's your name?"
+    r "Hi! I don't think I've seen you before. Can I help you?"
+    say "Today is my first day. I was told to check in and pick up my class schedule?"
+    r "Absolutely! I should have your forms here, if you give me a minute. What is your name?"
+
     $ player_name = get_player_name("What is your name?")
 
     # Provide a default name if the player doesn't enter one
@@ -98,21 +107,20 @@ label check_in:
         r "We'll call you Michael."
         $ player_name = "Michael"
     else:
-        r "It's good to meet you [player_name]!"
+        r "It's good to meet you, [player_name]!"
 
-    say "Today is my first day. I was told to check in and pick up my class schedule?"
-    r "Absolutely! I should have your forms here, if you give me a minute. What are you specializing in?"
-    say "I'm studying database administration. "
+    r "What are you specializing in?"
+    say "I'm studying database administration."
     r "That sounds difficult. What made you decide to study at HCSSHS?"
     say "The program is unmatched. They don't just teach you how to manage one database -- you're thrown into a sea of them." 
     say "With hundreds running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
     act "The young woman raises her eyebrows, clearly impressed."
     r "Wow, sounds intense! I knew our program was tough, but I didn't realize it was {i}that{/i} demanding. Well, I hope you're ready for the challenge!"
     act "She smiles and hands me a stack of papers."
-    r "By the way, my name is Kaitlyn!"
+    r "By the way,"
     $ r_name = "Kaitlyn"
-    r "By the way, my name is Kaitlyn!"
-    r "I usually help out the student council. I'm in charge of greeting new students."
+    r "By the way, my name is [r_name]!"
+    r "I help out the student council from time to time. I'm in charge of onboarding new students."
     act "She motions towards a hallway."
     r "Your first class is in the Development building, just behind the main building. Follow the path on the left and head out the side door. You’ll see it straight ahead."
     jump meet_birb
@@ -126,7 +134,7 @@ label meet_birb:
     pause(0.5)
     act "A tiny, green bird, no bigger than my hand, swoops down from a nearby branch. It lands a few feet in front of me, its head tilted, watching the ground intently." 
     birb "*chirp* *chirp*"
-    act "In the distance, the school bell rings — a reminder that class is starting soon."
+    act "In the distance, the school bell rings—a reminder that class is starting soon."
     
     think "What should I do?"
     menu:
@@ -161,19 +169,41 @@ label first_class:
     scene cluster
     pause(1)
 
-    # act "I step inside, scanning the room. The hum of computers and an overpowered AC fills the air. I grab an empty seat near the back."
-    # show powershell at right
-    # act "As I settle in, the girl in the seat next to me shoots me a glance — cold, sharp. She has already decided I’m a waste of her time. Her fingers fly across her keyboard, barely pausing as she turns back to her screen."
-    # hide powershell
-    # show professor at center
-    # pause(1)
-
-    # TODO
+    act "I step inside, scanning the room. The hum of computers and an overpowered AC fills the air."
+    act "A few students are already seated. I grab a seat near the front, by a window, which affords me a view to the walkway and trees outside."
+    
+    act "A tall figure with a no-nonsense demeanor, walks to the front and taps a button, causing the electronic board to display a vast network of interconnected nodes."
+    show professor
+    p "Welcome to Database Administration."
+    $ p_name = "Professor Diego"
+    p "Welcome to Database Administration. My name is [p_name]."
+    p "For some of you, this will be your first time managing live systems. For others, perhaps a continuation of previous experience. But let me make one thing absolutely clear from the beginning: our school runs on databases."
+    act "He gestures toward the screen, where diagrams show hundreds of interconnected nodes."
+    p "Each of these nodes represents a simulated environment—a meticulously designed system that supports learning."
+    p "Our school is famous for its broad library of learning materials, thanks to these environments. Whether you’re studying business strategy, engineering, or environmental science, there’s a database powering those lessons."
+    act "He pauses, his eyes scanning the class."
+    p "However, there is a cost. The more databases we support, the greater the strain on our infrastructure. Scalability becomes a challenge, even here. Every query, every transaction, and every mismanaged piece of data adds up."
+    think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
+    p "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
+    p "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
+    p "Today, we'll be going through the basics. I want each of you to spin up your own environment. We'll work through the exercises together."
+    p "When you are done, please make sure you clean up after yourself."
     act "The next few hours pass in a blur of lectures and note-taking. Before I know it, classes have ended."
     
-    jump after_first_class
+    jump first_night
     
-label after_first_class:
+label first_night:
+    scene bedroom
+    think "My first day... It was overwhelming but exciting."
+    act "As I lie in bed, my mind buzzing with new information and new faces, the weight of the day pulls at my eyelids. Slowly, the world fades, and I drift into sleep."
+        
+    scene black with fade
+    pause(1)
+
+    jump meet_birb_cont
+
+    
+label meet_birb_cont:
     scene walkway
     act "As I step out of the building, a familiar figure catches my eye, this time perching in a young tree."
     show birb smoll
@@ -200,15 +230,5 @@ label after_first_class:
     act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
 
     # TODO
-
-    jump first_night
-    
-label first_night:
-    scene bedroom
-    think "My first day... It was overwhelming but exciting."
-    act "As I lie in bed, my mind buzzing with new information and faces, the weight of the day pulls at my eyelids. Slowly, the world fades, and I drift into sleep."
-        
-    scene black with fade
-    pause(1)
 
     return
