@@ -30,21 +30,23 @@ define say = Character("[player_name]", what_color="#ffffff")
 define act = Character(None, what_color="#c0c0c0", what_italic=True)#, what_prefix="(", what_suffix=")")
 define think = Character("[player_name]", what_color="#c0c0c0", what_italic=True)
 
-define r = Character("[r_name]", color="#FFFF00")
-define hb = Character("[hb_name]", color="#009639")
-define hj = Character("[hj_name]", color="#005eb8")
+define r = Character("[receptionist_name]", color="#FFFF00")
+define hb = Character("[heavybid_name]", color="#009639")
+define hj = Character("[heavyjob_name]", color="#005eb8")
 define birb = Character("[birb_name]", color="#009639")
-define sf = Character("[sf_name]", color="")
-define p = Character("[p_name]", color="#8A2BE2")
+define sf = Character("[safety_name]", color="")
+define prof = Character("[professor_name]", color="#8A2BE2")
+define p = Character("[platform_name]")
 
 default player_name = ""
 
 default birb_name = "???"
-default hb_name = "???"
-default hj_name = "???"
-default sf_name = "???"
-default p_name = "???"
-default r_name = "???"
+default heavybid_name = "???"
+default heavyjob_name = "???"
+default safety_name = "???"
+default professor_name = "???"
+default platform_name = "???"
+default receptionist_name = "???"
 
 default investigated = False
 
@@ -116,10 +118,10 @@ label check_in:
     say "With hundreds running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
     act "The young woman raises her eyebrows, clearly impressed."
     r "Wow, sounds intense! I knew our program was tough, but I didn't realize it was {i}that{/i} demanding. Well, I hope you're ready for the challenge!"
-    act "She smiles and hands me a stack of papers."
+    act "She smiles and hands me a stack of papers and a name badge."  
     r "By the way,"
-    $ r_name = "Kaitlyn"
-    r "By the way, my name is [r_name]!"
+    $ receptionist_name = "Kaitlyn"
+    r "By the way, my name is [receptionist_name]!"
     r "I help out the student council from time to time. I'm in charge of onboarding new students."
     act "She motions towards a hallway."
     r "Your first class is in the Development building, just behind the main building. Follow the path on the left and head out the side door. You’ll see it straight ahead."
@@ -136,21 +138,20 @@ label meet_birb:
     birb "*chirp* *chirp*"
     act "In the distance, the school bell rings—a reminder that class is starting soon."
     
-    think "What should I do?"
     menu:
         "Observe the bird":
             $ investigated = True
             act "Wondering at the little bird, I pause for a moment."
             act "Its colorful feathers catch the light as it hops around, completely unaware of the world rushing by."
             act "I can't help but smile before catching my breath to continue on my way."
-            jump first_class
+            jump first_day
 
         "Hurry to class":
             act "As much as I'd like to stay, I shake off my moment of distraction."
             think "I can't afford to be late on my first day."
-            jump first_class
+            jump first_day
     
-label first_class:
+label first_day:
     scene dev building
     show heavybid frustrated at left
     hb "AAAAAGGHHHHhhhh, it doesn't make sense!" with hpunch
@@ -165,31 +166,76 @@ label first_class:
     hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- everything."
     hb "It all lines up. Everything except for those five cents."
     think "This conversation isn't really my business. I'd better get moving before I'm late for my first class."
+    jump lesson1
 
+label lesson1:
     scene cluster
     pause(1)
 
     act "I step inside, scanning the room. The hum of computers and an overpowered AC fills the air."
     act "A few students are already seated. I grab a seat near the front, by a window, which affords me a view to the walkway and trees outside."
     
-    act "A tall figure with a no-nonsense demeanor, walks to the front and taps a button, causing the electronic board to display a vast network of interconnected nodes."
+    act "A tall figure with a no-nonsense demeanor walks to the front and taps a button, causing the smartboard to display a vast network of interconnected nodes."
     show professor
-    p "Welcome to Database Administration."
-    $ p_name = "Professor Diego"
-    p "Welcome to Database Administration. My name is [p_name]."
-    p "For some of you, this will be your first time managing live systems. For others, perhaps a continuation of previous experience. But let me make one thing absolutely clear from the beginning: our school runs on databases."
+    prof "Welcome to Database Administration."
+    $ professor_name = "Professor Diego"
+    prof "Welcome to Database Administration. My name is [professor_name]."
+    prof "For some of you, this will be your first time managing live systems. For others, perhaps a continuation of previous experience. But let me make one thing absolutely clear from the beginning: our school runs on databases."
     act "He gestures toward the screen, where diagrams show hundreds of interconnected nodes."
-    p "Each of these nodes represents a simulated environment—a meticulously designed system that supports learning."
-    p "Our school is famous for its broad library of learning materials, thanks to these environments. Whether you’re studying business strategy, engineering, or environmental science, there’s a database powering those lessons."
-    act "He pauses, his eyes scanning the class."
-    p "However, there is a cost. The more databases we support, the greater the strain on our infrastructure. Scalability becomes a challenge, even here. Every query, every transaction, and every mismanaged piece of data adds up."
+    prof "Each of these nodes represents a simulated environment—a meticulously designed system that supports learning."
+    prof "Our school is famous for its broad library of learning materials, thanks to these environments. Whether you’re studying business strategy, engineering, or environmental science, there’s a database powering those lessons."
+    act "He stops for a moment, his eyes scanning the class."
+    prof "However, there is a cost. The more databases we support, the greater the strain on our infrastructure. Scalability becomes a challenge, even here. Every query, every transaction, and every mismanaged piece of data adds up."
     think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
-    p "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
-    p "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
-    p "Today, we'll be going through the basics. I want each of you to spin up your own environment. We'll work through the exercises together."
-    p "When you are done, please make sure you clean up after yourself."
-    act "The next few hours pass in a blur of lectures and note-taking. Before I know it, classes have ended."
+    prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
+    prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
+    act "He pauses dramatically"
+    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit. I assure you, the consequences will be… unpleasant."
+    # prof "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
+    # prof "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
+    prof "Now, with that out of the way, today we'll be going through the basics. I want each of you to spin up your own environment. We'll work through the exercises together."
+    prof "When you are done, please make sure you clean up after yourself."
+    act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
     
+    jump meet_birb_cont
+    
+label meet_birb_cont:
+    scene walkway
+    act "As I head home for the day, a familiar figure catches my eye, this time perching in a young tree."
+    show birb smoll
+    pause(1)
+    
+    if investigated:
+        think "I can't quite put my finger on it, but something about the bird seems different."
+        think "But then again, I've just had a very long day. I still need to go home and review my notes before I can relax."
+        act "I hear laughter and startle slightly, not realizing someone else had been watching me."
+        
+    p "Cute, isn't he?"
+    act "A student steps out from behind me smiling at the tiny bird, who hops around merrily."
+
+    show platform at left
+    pause(1)
+    
+    $ platform_name = "Platform"
+    act "A quick glance at her name badge reveals her name to be [platform_name]"
+    p "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
+    say "Hurdy?"
+    $ birb_name = "Hurdy Birb"
+    p "[birb_name]. That's his name. Well, that's what everyone calls him anyway."
+    say "Oh, I didn't know the bird had a name."
+    birb "*chirp* *chirp*"
+    say "Hi, [birb_name]."
+    p "He likes to hang around campus. I'm just glad the alligator isn't still around..."
+    act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
+    say "The alligator? What happened?"
+    p "Just... a story for another time. Hurdy's different, though. He’s harmless, mostly."
+    act "I smile and let out a small laugh at the thought that this tiny bird could ever be a danger to anything but himself."
+    p "It's nice to have something cute around, you know?"
+    say "Definitely."
+    act "R gives a faint smile, but there's a hint of something deeper in her eyes."
+    say "I should get going. See you tomorrow?"
+    p "Yeah, see  you."
+
     jump first_night
     
 label first_night:
@@ -200,35 +246,11 @@ label first_night:
     scene black with fade
     pause(1)
 
-    jump meet_birb_cont
+    jump second_day
 
-    
-label meet_birb_cont:
-    scene walkway
-    act "As I step out of the building, a familiar figure catches my eye, this time perching in a young tree."
-    show birb smoll
-    pause(1)
-    
-    if investigated:
-        think "I can't quite put my finger on it, but something about the bird seems different."
-        think "But then again, I've just had a very long day. I still need to go home and review my notes before I can relax."
-        act "I hear laughter and startle slightly, not realizing someone else had been watching me."
-        
-    r "Cute, isn't he?"
-    act "[r_name] steps out from behind me smiling at the tiny bird, who hops around merrily."
-
-    show receptionist at left
-    
-    r "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
-    say "Hurdy?"
-    r "Hurdy Birb. That's his name. Well, that's what everyone calls him anyway."
-    $ birb_name = "Hurdy Birb"
-    say "Oh, I didn't know the bird had a name."
-    birb "*chirp* *chirp*"
-    say "Hi, [birb_name]."
-    r "He likes to hang around campus. I'm just glad the alligator isn't still around..."
-    act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
-
-    # TODO
-
+label second_day:
     return
+
+label lesson2:
+    return
+  
