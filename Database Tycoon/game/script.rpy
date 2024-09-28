@@ -51,6 +51,7 @@ default receptionist_name = "???"
 default investigated = False
 
 image birb smoll = Image("hurdybirb.png", xalign = 0.9, yalign = 0.7)
+image hurdybirb still smoll = Image("hurdybirb still smoll.png", xalign = 0.9, yalign = 0.7)
 
 label splashscreen:
     scene splash
@@ -231,7 +232,7 @@ label lesson1:
     act "Turning to the computer in front of me, I quickly pull up a new environment to get started."
     act "Staring at the blank query editor in front of me, I can't help myself but test my skills here."
     menu:
-        "SELECT TOP(10) * FROM LESSONS"
+        "SELECT TOP(10) * FROM LESSONS":
             prof "Well done, [player_name]! I see you've done this before."
             act "I smile at the small praise before continuing on to the lesson."
             act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
@@ -266,7 +267,7 @@ label lesson1:
 label meet_birb_cont:
     scene walkway
     act "As I head home for the day, a familiar figure catches my eye, this time perching in a young tree."
-    show birb smoll
+    show hurdybirb still smoll
     pause(1)
     
     if investigated:
@@ -296,7 +297,7 @@ label meet_birb_cont:
     act "I smile and let out a small laugh at the thought that this tiny bird could ever be a danger to anything but himself."
     p "It's nice to have something cute around, you know?"
     say "Definitely."
-    act "R gives a faint smile, but there's a hint of something deeper in her eyes."
+    act "[platform_name] gives a faint smile, but there's a hint of something deeper in her eyes."
     say "I should get going. See you tomorrow?"
     p "Yeah, see  you."
 
@@ -316,9 +317,11 @@ label second_day:
 
     scene cluster with fade
 
-    act "After a few weeks of intense studying and late-night coding sessions, I feel more confident navigating my assignements."
+    act "After a few weeks of intense studying and late-night coding sessions, I feel more confident navigating my lessons."
     act "Today, [professor_name] stands at the front, a serious expression on his face."
 
+    show professor
+    pause(1)
     prof "Alright, everyone. I hope you’re ready for a significant change in responsibilities. From here on out, you will be managing the production databases."
 
     # The class stirs, a mix of excitement and apprehension.
@@ -345,7 +348,7 @@ label birb_growing:
 
     act "I step onto the walkway and spot the distinct green feathers of my tiny bird friend. "
 
-    show birb growing at right
+    show hurdybirb growing at right
 
     act "As I get closer, I realize that [birb_name] is noticeably bigger than I remember. His once-cute features now have a disturbing edge."
 
@@ -359,12 +362,13 @@ label birb_growing:
 
     menu:
         "Approach [birb_name]":
-            act "Despite my unease, I cautiously approach slowly to see if he’s okay."
+            act "Despite my unease, I cautiously approach to see if he’s okay."
             jump eldritch_horror_early
             # Outcome...
 
-        "Back Away":
+        "Back away":
             act "Feeling a chill run down my spine, I decide to back away slowly and avoid drawing attention."
+            jump to_be_continued
             # Outcome...
 
 label eldritch_horror_early:
@@ -374,27 +378,27 @@ label eldritch_horror_early:
 
     act "Suddenly, I hear a deep voice bellow inside my head."
 
-    hurdy_birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
+    birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
 
     act "The words vibrate through my skull, and I struggle to remain standing as the ground shifts beneath me."
 
-    hurdy_birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
+    birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
 
     act "My fingers twitch uncontrollably as I feel an overwhelming compulsion to comply. A mix of fear and confusion washes over me."
 
     act "Against my will, I pull out my laptop, the screen lighting up with commands ready to execute, my network privileges granting me access to the school’s resources."
 
-    act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for power."
+    act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for more."
 
     act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
 
-    hurdy_birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
+    birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
 
     act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
 
     act "The hall trembles, the air thick with a sense of impending doom as I feel the walls of the school beginning to crack."
 
-    hurdy_birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
+    birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
 
     act "I watch in horror as the tendrils of Hurdy extend throughout the building, coiling around everything, pulling it into him as he devours the essence of HSCSHS."
 
@@ -404,7 +408,13 @@ label eldritch_horror_early:
 
     show black with fade
 
-    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name].""
+    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
 
+    return
+  
+label to_be_continued:
+    scene black with fade
+    show text "to be continued..."
+    pause
     return
   
