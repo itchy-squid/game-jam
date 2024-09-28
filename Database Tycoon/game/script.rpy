@@ -392,6 +392,9 @@ label eldritch_horror_early:
 
     act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
 
+    hide hurdybirb growing
+    show hurdybirb large at right
+
     birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
 
     act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
