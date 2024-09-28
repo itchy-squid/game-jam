@@ -63,32 +63,49 @@ label start:
 label legal:
     scene black
     with Pause(1)
-    show text """Disclaimer:{p}
+    show text """
+This game contains themes and elements that may be 
+unsettling to some readers. It is not suitable for young 
+children or individuals who are easily disturbed. Player 
+discretion is advised."""
+    pause(4)
+    show text """
 The characters, locations, and events depicted in this game are entirely 
 fictional. Any resemblance to actual persons, living or dead, or actual 
 events is purely coincidental.{p}
 The authors are solely responsible for the content of this game. HCSS and
 its affiliates cannot be held responsible for any content or actions taken 
 by the authors."""
-    pause
+    pause(3)
+    show lawyer at right
+    pause(3)
     hide text
     jump intro
     
 label intro:
     scene bedroom #with Pixellate(2.0,5)
+    pause (2)
+    show text "(click to continue)"
     pause
+    hide text
 
+    act "The morning light spills into my room, casting a warm glow over everything."
     think "What time is it?"
-    think "Oh right, today is my first day. I'm really nervous..."
+    act "Sitting up in bed, I glance around my room, taking in the chaos of my preparations. Textbooks are piled high, my laptop is open with a to-do list, and my backpack sits ready by the door."    
+    think "Oh right, Today is finally the day! My first day. I'm really nervous..."
+    act "I can hardly believe I made it in. A prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
     think "I guess I'd better get ready."
     
-    scene entrance #with pixellate
+    scene entrance with fade
 
-    think "I can't believe I'm finally here!"
-    think "It's my first day at Heavy Construction Systems Specialists High School. They call it HCSSHS for short."
-    think "I hope I can keep those letters straight."
-    think "I've worked so hard to get here. The interview process alone took a year."
-    think "I'll just have to do my best!"
+    act "As I approach to the school, the world feels different. The excitement of a new beginning fills the air, mingled with the scent of fresh grass and morning dew."
+    act "It's my first day at HCSSHS—Heavy Construction Systems Specialists High School—an institution known for its rigorous programs and impressive resources."    
+    think "I just hope I can keep that acronym straight."
+    think "I've worked so hard to get here. The interview process alone took a year."    
+    act "Pausing just outside the entrance, I take a deep breath, gathering my thoughts. What if I don’t fit in? What if the work is too hard?"
+    act "But then I remember why I’m here. I’ve worked so hard to get to this point, and I can’t let fear hold me back. This is my chance to prove myself, to learn from the best, and to make new friends."
+    act "The sounds of laughter, chatter, and footsteps fill the air, and I can’t help but smile. This is it—my new adventure begins now."
+
     jump check_in
     
 label check_in:
@@ -114,8 +131,8 @@ label check_in:
     r "What are you specializing in?"
     say "I'm studying database administration."
     r "That sounds difficult. What made you decide to study at HCSSHS?"
-    say "The program is unmatched. They don't just teach you how to manage one database -- you're thrown into a sea of them." 
-    say "With hundreds running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
+    say "The program is unmatched. They don't just teach you how to manage one database -- you're thrown into a pool of them." 
+    say "With dozens running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
     act "The young woman raises her eyebrows, clearly impressed."
     r "Wow, sounds intense! I knew our program was tough, but I didn't realize it was {i}that{/i} demanding. Well, I hope you're ready for the challenge!"
     act "She smiles and hands me a stack of papers and a name badge."  
@@ -142,7 +159,7 @@ label meet_birb:
         "Observe the bird":
             $ investigated = True
             act "Wondering at the little bird, I pause for a moment."
-            act "Its colorful feathers catch the light as it hops around, completely unaware of the world rushing by."
+            act "Its bright feathers catch the light as it hops around, completely unaware of the world rushing by."
             act "I can't help but smile before catching my breath to continue on my way."
             jump first_day
 
@@ -179,7 +196,7 @@ label lesson1:
     show professor
     prof "Welcome to Database Administration."
     $ professor_name = "Professor Diego"
-    prof "Welcome to Database Administration. My name is [professor_name]."
+    prof "Welcome to Database Administration. I'm [professor_name]."
     prof "For some of you, this will be your first time managing live systems. For others, perhaps a continuation of previous experience. But let me make one thing absolutely clear from the beginning: our school runs on databases."
     act "He gestures toward the screen, where diagrams show hundreds of interconnected nodes."
     prof "Each of these nodes represents a simulated environment—a meticulously designed system that supports learning."
@@ -189,15 +206,62 @@ label lesson1:
     think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
     prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
     prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
-    act "He pauses dramatically"
-    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit. I assure you, the consequences will be… unpleasant."
+    # TODO Hyperbolic violence DBA locked in server room on fire. Oh, I thought it was $5
+    # act "He pauses dramatically"
+    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit."
+    act "A motion at the corner of my eye grabs my attention. A girl to my left has raised her hand."
+    show heavyjob concerned at left
+    hj "What happens if someone forgets?"
+    act "[professor_name] pauses for a moment, his expression turning grave."
+    hide heavyjob
+    prof "Let me share a cautionary tale from a few years back."
+    prof "One team of students neglected to clean up after a project."
+    prof "The leftover data started to conflict with other systems, and before we knew it, the server room was in chaos."
+    prof "It caught fire, and—well, we had to evacuate the building. Two students were unaccounted for during the evacuation."
+    act "Gasps echo in the classroom as the weight of his words sinks in."
+    prof "Thankfully, they were found later, shaken but safe. However, the incident served as a harsh reminder that what may seem like a small oversight can escalate into a serious situation."
+    act "The classroom is quiet, the gravity of the story hanging in the air."
+
     # prof "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
     # prof "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
-    prof "Now, with that out of the way, today we'll be going through the basics. I want each of you to spin up your own environment. We'll work through the exercises together."
-    prof "When you are done, please make sure you clean up after yourself."
-    act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
-    
-    jump meet_birb_cont
+    prof "Now, with that out of the way, today we'll be going through the basics."
+    prof "I want each of you to spin up your own environment. We'll work through the exercises together. When you are done, please make sure you clean up after yourself."    
+    act "[professor_name] begins to walk between the rows of desks to help individual students and answer any questions."
+
+    act "Turning to the computer in front of me, I quickly pull up a new environment to get started."
+    act "Staring at the blank query editor in front of me, I can't help myself but test my skills here."
+    menu:
+        "SELECT TOP(10) * FROM LESSONS"
+            prof "Well done, [player_name]! I see you've done this before."
+            act "I smile at the small praise before continuing on to the lesson."
+            act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
+            jump meet_birb_cont
+
+        # "Normalization is always the best approach for database design.":
+        #     act "[professor_name] shakes his head."
+        #     prof "It's good to strive for a normalized database, but sometimes over-normalization can lead to complex queries and may negatively impact performance."
+        #     prof "Sometimes, denormalization is a better strategy. Remember, \"Normalize until it hurts; Denormaliza until it works.\""
+
+        # "Using a GUID as a clustered, primary key can lead to fragmentation and poor performance due to unpredictable data storage.":
+        #     act "I confidently raise my hand and share my thoughts."
+        #     prof "Correct! While GUIDs are unique, using them as clustered primary keys can cause fragmentation and slow down data retrieval."
+
+        # "Using a GUID guarantees uniqueness, so it’s always the best option for a primary key.":
+        #     prof "That’s a common misconception. While GUIDs provide uniqueness, they may lead to performance issues when used as clustered keys."
+
+        "DROP TABLE USERS":
+            act "A command that would delete the entire users table... I know I shouldn't, but I can't help myself."
+            act "As soon as run my query, a fire alarms begin to blare and the lights flicker. The screen displays error message after error message."
+            act "[professor_name], who had been nearby at the time, looks me in the eyes, an expression of horror on his face."
+            prof "Fool! What did you do?!"
+            act "A booming voice comes on the speakers, \"Evacuate immediately! The data is in peril!\""
+            act "Students scramble, colliding and tripping over desks in a panic."
+            act "In the chaos, I'm knocked backward, slamming my head into a wall." with hpunch
+            scene black with fade
+            act "As my vision fades to black, I hear another system notice announce, \"SYSTEM OVERLOAD: ALL DATA WILL SELF-DESTRUCT IN 10 SECONDS!\""
+            pause (2)
+            show text "Your journey ends here. Always remember: some commands are better left untyped."
+            return 
     
 label meet_birb_cont:
     scene walkway
@@ -249,8 +313,98 @@ label first_night:
     jump second_day
 
 label second_day:
-    return
 
-label lesson2:
+    scene cluster with fade
+
+    act "After a few weeks of intense studying and late-night coding sessions, I feel more confident navigating my assignements."
+    act "Today, [professor_name] stands at the front, a serious expression on his face."
+
+    prof "Alright, everyone. I hope you’re ready for a significant change in responsibilities. From here on out, you will be managing the production databases."
+
+    # The class stirs, a mix of excitement and apprehension.
+    act "The classroom buzzes with murmurs. Managing production databases is a big deal, and the weight of responsibility hangs in the air."
+
+    prof "I have received requests from the Student Council regarding new environments for the clubs that have formed this semester. Each team will be assigned a few of these requests to handle."
+
+    act "He gestures to the screen, where a list of clubs and their corresponding database requests appears."
+
+    act "I lean forward, scanning the list: \"Future Entrepreneurs Club,\" \"Eco-Warriors,\" \"Tech Innovators\"... so many opportunities to apply what I’ve learned."
+
+    prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
+
+    act "My heart races. This is my chance to make an impact, but I also feel the weight of responsibility settling in."
+
+    prof "I’ll assign you to teams, and you can begin discussing your approach to each request. Make sure you’re considering how to best structure these environments for the clubs."
+
+    act "I meet my new teammate to get started on the assignment. After an eternity of discussions and planning, the class finally comes to an end."
+    
+    jump birb_growing
+
+label birb_growing:
+    scene walkway
+
+    act "I step onto the walkway and spot the distinct green feathers of my tiny bird friend. "
+
+    show birb growing at right
+
+    act "As I get closer, I realize that [birb_name] is noticeably bigger than I remember. His once-cute features now have a disturbing edge."
+
+    act "His feathers are ragged and disheveled, the vibrant colors dulled. Dark shadows dance around him, casting an eerie pallor over his form."
+
+    birb "*chirp* *chorp*"
+
+    act "With a low, guttural chirp, [birb_name] tilts his head at me, his movements twitchy and erratic, almost as if he’s struggling to maintain his composure."
+
+    act "I step back, my heart racing. This isn’t the cute mascot of HHCSSSS I’ve come to know. What happened to [birb_name]?"
+
+    menu:
+        "Approach [birb_name]":
+            act "Despite my unease, I cautiously approach slowly to see if he’s okay."
+            jump eldritch_horror_early
+            # Outcome...
+
+        "Back Away":
+            act "Feeling a chill run down my spine, I decide to back away slowly and avoid drawing attention."
+            # Outcome...
+
+label eldritch_horror_early:
+    act "As I step within arm's reach, [birb_name] lets out a resonant croak that distorts reality."
+            
+    act "Gravity shifts dramatically, pulling me toward Hurdy Birb. The familiar sounds of laughter and chatter fade into an eerie silence."
+
+    act "Suddenly, I hear a deep voice bellow inside my head."
+
+    hurdy_birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
+
+    act "The words vibrate through my skull, and I struggle to remain standing as the ground shifts beneath me."
+
+    hurdy_birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
+
+    act "My fingers twitch uncontrollably as I feel an overwhelming compulsion to comply. A mix of fear and confusion washes over me."
+
+    act "Against my will, I pull out my laptop, the screen lighting up with commands ready to execute, my network privileges granting me access to the school’s resources."
+
+    act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for power."
+
+    act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
+
+    hurdy_birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
+
+    act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
+
+    act "The hall trembles, the air thick with a sense of impending doom as I feel the walls of the school beginning to crack."
+
+    hurdy_birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
+
+    act "I watch in horror as the tendrils of Hurdy extend throughout the building, coiling around everything, pulling it into him as he devours the essence of HSCSHS."
+
+    act "In a final surge, the entire school shakes violently, and reality distorts into a kaleidoscope of color and sound."
+
+    act "And then, everything goes dark."
+
+    show black with fade
+
+    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name].""
+
     return
   
