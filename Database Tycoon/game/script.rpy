@@ -49,6 +49,7 @@ default platform_name = "???"
 default receptionist_name = "???"
 
 default investigated = False
+default encountered = False
 
 image birb smoll = Image("hurdybirb.png", xalign = 0.9, yalign = 0.7)
 image hurdybirb still smoll = Image("hurdybirb still smoll.png", xalign = 0.9, yalign = 0.7)
@@ -93,7 +94,7 @@ label intro:
     act "The morning light spills into my room, casting a warm glow over everything."
     think "What time is it?"
     act "Sitting up in bed, I glance around my room, taking in the chaos of my preparations. Textbooks are piled high, my laptop is open with a to-do list, and my backpack sits ready by the door."    
-    think "Oh right, Today is finally the day! My first day. I'm really nervous..."
+    think "Oh right, today is finally the day! My first day. I'm really nervous..."
     act "I can hardly believe I made it in. A prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
     think "I guess I'd better get ready."
     
@@ -362,59 +363,55 @@ label birb_growing:
 
     menu:
         "Approach [birb_name]":
+            $ encountered = True
             act "Despite my unease, I cautiously approach to see if he’s okay."
-            jump eldritch_horror_early
+            act "As I step within arm's reach, [birb_name] lets out a resonant croak that distorts reality."
+            act "Gravity shifts dramatically, pulling me toward Hurdy Birb. The familiar sounds of laughter and chatter fade into an eerie silence."
+            act "Suddenly, I hear a deep voice bellow inside my head."
+            birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
+            act "The words vibrate through my skull, and I struggle to remain standing as the ground shifts beneath me."
+
+            # act "Just as I feel myself slipping, I hear a familiar voice call out to me from a distance, breaking through the haze of fear."
+            jump third_class
+
+            # jump eldritch_horror_early
             # Outcome...
 
         "Back away":
             act "Feeling a chill run down my spine, I decide to back away slowly and avoid drawing attention."
-            jump to_be_continued
+            jump third_class
             # Outcome...
+     
 
-label eldritch_horror_early:
-    act "As I step within arm's reach, [birb_name] lets out a resonant croak that distorts reality."
-            
-    act "Gravity shifts dramatically, pulling me toward Hurdy Birb. The familiar sounds of laughter and chatter fade into an eerie silence."
+label third_class:
+    scene black with fade
+    act "Over the next few weeks, the memory of that encounter lingers in my mind, a constant reminder of the strange transformation [birb_name] has undergone."
+    act "I find myself distracted in class, the usual lessons overshadowed by thoughts of what I witnessed."
+    act "The atmosphere at HCSSHS feels different—tinged with a sense of dread. Whispers circulate among students about odd occurrences, and some claim to have seen strange shadows flitting around the school."
+    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
+    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
+    jump to_be_continued
 
-    act "Suddenly, I hear a deep voice bellow inside my head."
 
-    birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
-
-    act "The words vibrate through my skull, and I struggle to remain standing as the ground shifts beneath me."
-
-    birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
-
-    act "My fingers twitch uncontrollably as I feel an overwhelming compulsion to comply. A mix of fear and confusion washes over me."
-
-    act "Against my will, I pull out my laptop, the screen lighting up with commands ready to execute, my network privileges granting me access to the school’s resources."
-
-    act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for more."
-
-    act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
-
-    hide hurdybirb growing
-    show hurdybirb large at right
-
-    birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
-
-    act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
-
-    act "The hall trembles, the air thick with a sense of impending doom as I feel the walls of the school beginning to crack."
-
-    birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
-
-    act "I watch in horror as the tendrils of Hurdy extend throughout the building, coiling around everything, pulling it into him as he devours the essence of HSCSHS."
-
-    act "In a final surge, the entire school shakes violently, and reality distorts into a kaleidoscope of color and sound."
-
-    act "And then, everything goes dark."
-
-    show black with fade
-
-    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
-
-    return
-  
+# label eldritch_horror_early:
+#     birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
+#     act "My fingers twitch uncontrollably as I feel an overwhelming compulsion to comply. A mix of fear and confusion washes over me."
+#     act "Against my will, I pull out my laptop, the screen lighting up with commands ready to execute, my network privileges granting me access to the school’s resources."
+#     act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for more."
+#     act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
+#     hide hurdybirb growing
+#     show hurdybirb large at right
+#     birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
+#     act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
+#     act "The hall trembles, the air thick with a sense of impending doom as I feel the walls of the school beginning to crack."
+#     birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
+#     act "I watch in horror as the tendrils of Hurdy extend throughout the building, coiling around everything, pulling it into him as he devours the essence of HSCSHS."
+#     act "In a final surge, the entire school shakes violently, and reality distorts into a kaleidoscope of color and sound."
+#     act "And then, everything goes dark."
+#     show black with fade
+#     act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
+#     return
+    
 label to_be_continued:
     scene black with fade
     show text "to be continued..."
