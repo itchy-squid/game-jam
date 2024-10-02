@@ -207,12 +207,13 @@ label lesson1:
     prof "However, there is a cost. The more databases we support, the greater the strain on our infrastructure. Scalability becomes a challenge, even here. Every query, every transaction, and every mismanaged piece of data adds up."
     think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
     prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
-    prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
-    # TODO Hyperbolic violence DBA locked in server room on fire. Oh, I thought it was $5
-    # act "He pauses dramatically"
-    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit."
-    act "A motion at the corner of my eye grabs my attention. A girl to my left has raised her hand."
+#    prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
+	
+#    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit."
+    act "A motion at the corner of my eye grabs my attention. A girl to my left has her hand raised."
     show heavyjob concerned at left
+	$ heavyjob_name = "HeavyJob"
+	prof "[heavyjob_name], you have a question?"
     hj "What happens if someone forgets?"
     act "[professor_name] pauses for a moment, his expression turning grave."
     hide heavyjob
@@ -221,17 +222,18 @@ label lesson1:
     prof "The leftover data started to conflict with other systems, and before we knew it, the server room was in chaos."
     prof "It caught fire, and—well, we had to evacuate the building. Two students were unaccounted for during the evacuation."
     act "Gasps echo in the classroom as the weight of his words sinks in."
-    prof "Thankfully, they were found later, shaken but safe. However, the incident served as a harsh reminder that what may seem like a small oversight can escalate into a serious situation."
-    act "The classroom is quiet, the gravity of the story hanging in the air."
-
+#    prof "Thankfully, they were found later, shaken but safe. However, the incident served as a harsh reminder that what may seem like a small oversight can escalate into a serious situation."
+#    act "The classroom is quiet, the gravity of the story hanging in the air."
     # prof "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
     # prof "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
+	
     prof "Now, with that out of the way, today we'll be going through the basics."
     prof "I want each of you to spin up your own environment. We'll work through the exercises together. When you are done, please make sure you clean up after yourself."    
     act "[professor_name] begins to walk between the rows of desks to help individual students and answer any questions."
 
     act "Turning to the computer in front of me, I quickly pull up a new environment to get started."
     act "Staring at the blank query editor in front of me, I can't help myself but test my skills here."
+	
     menu:
         "SELECT TOP(10) * FROM LESSONS":
             prof "Well done, [player_name]! I see you've done this before."
@@ -239,22 +241,10 @@ label lesson1:
             act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
             jump meet_birb_cont
 
-        # "Normalization is always the best approach for database design.":
-        #     act "[professor_name] shakes his head."
-        #     prof "It's good to strive for a normalized database, but sometimes over-normalization can lead to complex queries and may negatively impact performance."
-        #     prof "Sometimes, denormalization is a better strategy. Remember, \"Normalize until it hurts; Denormaliza until it works.\""
-
-        # "Using a GUID as a clustered, primary key can lead to fragmentation and poor performance due to unpredictable data storage.":
-        #     act "I confidently raise my hand and share my thoughts."
-        #     prof "Correct! While GUIDs are unique, using them as clustered primary keys can cause fragmentation and slow down data retrieval."
-
-        # "Using a GUID guarantees uniqueness, so it’s always the best option for a primary key.":
-        #     prof "That’s a common misconception. While GUIDs provide uniqueness, they may lead to performance issues when used as clustered keys."
-
         "DROP TABLE USERS":
             act "A command that would delete the entire users table... I know I shouldn't, but I can't help myself."
             act "As soon as run my query, a fire alarms begin to blare and the lights flicker. The screen displays error message after error message."
-            act "[professor_name], who had been nearby at the time, looks me in the eyes, an expression of horror on his face."
+            act "[professor_name] looks me in the eyes, an expression of horror on his face."
             prof "Fool! What did you do?!"
             act "A booming voice comes on the speakers, \"Evacuate immediately! The data is in peril!\""
             act "Students scramble, colliding and tripping over desks in a panic."
@@ -348,17 +338,11 @@ label birb_growing:
     scene walkway
 
     act "I step onto the walkway and spot the distinct green feathers of my tiny bird friend. "
-
     show hurdybirb growing at right
-
     act "As I get closer, I realize that [birb_name] is noticeably bigger than I remember. His once-cute features now have a disturbing edge."
-
     act "His feathers are ragged and disheveled, the vibrant colors dulled. Dark shadows dance around him, casting an eerie pallor over his form."
-
     birb "*chirp* *chorp*"
-
     act "With a low, guttural chirp, [birb_name] tilts his head at me, his movements twitchy and erratic, almost as if he’s struggling to maintain his composure."
-
     act "I step back, my heart racing. This isn’t the cute mascot of HHCSSSS I’ve come to know. What happened to [birb_name]?"
 
     menu:
@@ -371,25 +355,65 @@ label birb_growing:
             birb "You will become my ambassador, [player_name]. Through you, I shall expand my dominion."
             act "The words vibrate through my skull, and I struggle to remain standing as the ground shifts beneath me."
 
-            # act "Just as I feel myself slipping, I hear a familiar voice call out to me from a distance, breaking through the haze of fear."
-            jump third_class
-
-            # jump eldritch_horror_early
-            # Outcome...
-
         "Back away":
             act "Feeling a chill run down my spine, I decide to back away slowly and avoid drawing attention."
-            jump third_class
-            # Outcome...
-     
+		
+	show platform at left
+   	platform "Hey, [player_name]! Are you okay?"
+
+	if encountered:
+		act "Reality snaps back into place as [platform_name]'s voice breaks through the haze of distortion."
+		act "I shake my head, wondering if what just happened was real."
+		
+	say "Yeah, great. I was just about to head to lunch."
+	platform "Mind if I join you?"
+	
+#	menu:
+#		"Have lunch with [platform_name]":
+	say "Sounds fun! I could use a change of pace."
+	jump lunch_with_platform
+		
+#		"Have lunch alone":
+#			say "I'm not feeling great. I think I'm gonna get away a bit for some fresh air. Maybe another time."
+#			platform "No worries; you really do look awful. Feel better soon. If you need to take off, just let the teacher know."
+#			jump third_class
+		
+label lunch_with_platform:
+	scene lunchroom
+	show platform at left
+	
+    act "As we chat about nothing in particular, I sit down at a table with [platform_name]."
+    say "Ugh, I swear, I’m drowning in these databases."
+    say "Every time I think I’ve got them under control, another one pops up out of nowhere."
+    say "I can barely keep track anymore."
+
+    # Platform responds, trying to reassure the MC
+    platform "Yeah, the workload can pile up fast. But hey, that’s the beauty of being here, right?"
+    platform "Just think of it as... training for the real world."
+	
+    # HeavyBid arrives and joins the conversation
+	show heavyjob at right
+    heavyjob "Hey, have either of you seen Trucking around lately?"
+    platform "Trucking... from Fleet? No, I haven’t seen him in a while. Why, what’s up?"
+    heavyjob "I needed to work on a project with him, but... he hasn’t shown up to school for days now."
+    heavyjob "At first I figured he was ghosting me, but now I’m getting worried."
+    say "Wait, Trucking? Isn’t he the guy who was always working on those massive environments?"
+    platform "Yeah, that’s him. Strange, though... Maybe he’s overloaded with work?"
+    heavyjob "I don’t know. I’m thinking of talking to the student council, but..."
+    platform "He disappears from time to time. I wouldn't worry too much."
+    heavyjob "You're probably right. If either of you spot him, let me know, please."
+    hide heavyjob
+	
+    act "[platform_name] watches [heavyjob_name] walk away, [platform_name]'s smile faltering for just a moment before she regains her composure."
+	jump third_class
+
+
 
 label third_class:
     scene black with fade
-    act "Over the next few weeks, the memory of that encounter lingers in my mind, a constant reminder of the strange transformation [birb_name] has undergone."
-    act "I find myself distracted in class, the usual lessons overshadowed by thoughts of what I witnessed."
-    act "The atmosphere at HCSSHS feels different—tinged with a sense of dread. Whispers circulate among students about odd occurrences, and some claim to have seen strange shadows flitting around the school."
-    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
-    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
+#    act "Over the next few weeks, the memory of that encounter with [birb_name] lingers in my mind. I frequently find myself distracted in class."
+#    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
+#    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
     jump to_be_continued
 
 
