@@ -37,6 +37,7 @@ define birb = Character("[birb_name]", color="#009639")
 define sf = Character("[safety_name]", color="")
 define prof = Character("[professor_name]", color="#8A2BE2")
 define p = Character("[platform_name]")
+define ps = Character("[powershell_name]")
 
 default player_name = ""
 
@@ -46,6 +47,7 @@ default heavyjob_name = "???"
 default safety_name = "???"
 default professor_name = "???"
 default platform_name = "???"
+default powershell_name = "???"
 default receptionist_name = "???"
 
 default investigated = False
@@ -325,11 +327,11 @@ label second_day:
     act "I lean forward, scanning the list: \"Future Entrepreneurs Club,\" \"Eco-Warriors,\" \"Tech Innovators\"... so many opportunities to apply what I’ve learned."
 
     prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
-
-    act "My heart races. This is my chance to make an impact, but I also feel the weight of responsibility settling in."
-
-    prof "I’ll assign you to teams, and you can begin discussing your approach to each request. Make sure you’re considering how to best structure these environments for the clubs."
-
+	$ powershell_name = powershell
+	prof "[player_name] you're with [powershell_name]."
+	hide professor
+	show professor at right
+	show powershell at left
     act "I meet my new teammate to get started on the assignment. After an eternity of discussions and planning, the class finally comes to an end."
     
     jump birb_growing
@@ -404,16 +406,81 @@ label lunch_with_platform:
     heavyjob "You're probably right. If either of you spot him, let me know, please."
     hide heavyjob
 	
-    act "[platform_name] watches [heavyjob_name] walk away, [platform_name]'s smile faltering for just a moment before she regains her composure."
-	jump third_class
+    act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
+	jump pairing_session
 
 
 
-label third_class:
+label pairing_session:
     scene black with fade
 #    act "Over the next few weeks, the memory of that encounter with [birb_name] lingers in my mind. I frequently find myself distracted in class."
 #    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
 #    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
+
+    # Set the scene with MC and PowerShell in the lab room
+    scene cafe
+
+    # MC starts working on the system
+    say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
+    say "I think I can balance some of these SQL pools. Just a few more tweaks—"
+
+    # An alarm goes off, indicating something is wrong
+    act "Suddenly, all of our dashboard indicators flash red. A message pops up in the incident management channel."
+
+	$ heavybid_name = "HeavyBid"
+	
+	hb "{i}[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classwork, too.]{/i}"
+	
+    powershell "What the hell? Several of the elastic pools are maxing out. CPU is at 200%?!"
+    say "That makes no sense. We’re not even pushing data... "
+	
+	powershell ""
+	
+#    powershell "And look at this! We're also hitting SNAT port exhaustion. Services connections are getting choked out!"
+
+#    mc "How is this happening so fast? We barely even touched the system."
+
+#    act "The screen glitches, displaying warnings about SNAT port exhaustion and timeouts as connection failures start cascading."
+
+#    powershell "It’s throttling everything! The whole system is backing up. Every environment connected to these pools is about to go down."
+
+    # Chirping begins softly, signaling the bird’s influence
+    act "From the hallway outside, a faint chirping sound starts to grow louder."
+
+    mc "No... No way. It’s Hurdy Birb again. Every time something like this happens..."
+
+    powershell "You can’t be serious—this is a technical issue, not a bird problem."
+
+    mc "Look, the SNAT ports are exhausted, and the elastic pools are maxed, but none of this adds up. We’ve barely been working, and the resource usage is spiking!"
+
+    act "The chirping grows louder, almost vibrating through the walls, as though it's coming from the very infrastructure of the building."
+
+    mc "It's feeding on this. I swear, it’s like the bird is tied to the system somehow."
+
+    powershell "That’s insane."
+
+    # The environment crashes, locking both MC and PowerShell out
+    act "The screens flash red, and suddenly, all access to the system is lost. A final message appears: 'System Outage: All Elastic Pools Overloaded.'"
+
+    powershell "(flatly) Great. Now we’re locked out. We need to reset everything before the admins notice."
+
+    mc "But this isn’t just us! Look at the logs—these spikes happened *before* we even started working. It’s like something is deliberately causing this."
+
+    act "The lights flicker. Hurdy Birb’s chirping becomes more erratic, echoing from outside the window."
+
+    powershell "You’re not seriously going to keep blaming that bird, are you?"
+
+    mc "You don’t see it? Every time the bird appears, something happens to the system. It’s feeding off the environment—like it’s growing with every outage."
+
+    powershell "(sighs) Fine, whatever you say. But for now, we need to figure out how to stop these elastic pools from maxing out. Otherwise, we're dead in the water."
+
+    mc "I’ll see if I can reroute some of the connections, but if this keeps happening, the entire network is going to crash."
+
+    # The birb chirps loudly, signifying the impending threat
+    act "The screen flickers again, and the chirping reaches a deafening pitch. MC looks toward the window, seeing Hurdy Birb’s silhouette looming larger than before."
+
+    mc "(whispers) We’re running out of time."
+
     jump to_be_continued
 
 
