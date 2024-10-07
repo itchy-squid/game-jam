@@ -10,7 +10,7 @@ init python:
             name = name.strip()  # Limit to 20 characters
             if len(name) >= 20: 
                 return ""
-            if re.match("^[A-Za-z ]*$", name):
+            if re.match("^[A-Za-z .]*$", name):
                 return name
             else:
                 return ""
@@ -32,12 +32,12 @@ define think = Character("[player_name]", what_color="#c0c0c0", what_italic=True
 
 define r = Character("[receptionist_name]", color="#FFFF00")
 define hb = Character("[heavybid_name]", color="#009639")
-define hj = Character("[heavyjob_name]", color="#005eb8")
+define heavyjob = Character("[heavyjob_name]", color="#005eb8")
 define birb = Character("[birb_name]", color="#009639")
 define sf = Character("[safety_name]", color="")
 define prof = Character("[professor_name]", color="#8A2BE2")
-define p = Character("[platform_name]")
-define ps = Character("[powershell_name]")
+define platform = Character("[platform_name]")
+define powershell = Character("[powershell_name]")
 
 default player_name = ""
 
@@ -95,15 +95,15 @@ label intro:
 
     act "The morning light spills into my room, casting a warm glow over everything."
     think "What time is it?"
-    act "Sitting up in bed, I glance around my room, taking in the chaos of my preparations. Textbooks are piled high, my laptop is open with a to-do list, and my backpack sits ready by the door."    
+    act "Sitting up in bed, I glance around my room, taking in the chaos of my preparations. Textbooks are piled high; my laptop is open with a to-do list; my backpack sits ready by the door."    
     think "Oh right, today is finally the day! My first day. I'm really nervous..."
-    act "I can hardly believe I made it in. A prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
     think "I guess I'd better get ready."
     
     scene entrance with fade
 
     act "As I approach to the school, the world feels different. The excitement of a new beginning fills the air, mingled with the scent of fresh grass and morning dew."
-    act "It's my first day at HCSSHS—Heavy Construction Systems Specialists High School—an institution known for its rigorous programs and impressive resources."    
+    act "I can hardly believe I made it in. This prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
+    act "It's my first day at HCSSHS—Heavy Construction Systems Specialists High School."    
     think "I just hope I can keep that acronym straight."
     think "I've worked so hard to get here. The interview process alone took a year."    
     act "Pausing just outside the entrance, I take a deep breath, gathering my thoughts. What if I don’t fit in? What if the work is too hard?"
@@ -180,9 +180,10 @@ label first_day:
     hb "There's a five-cent discrepancy! I've recalculated this three times. Every. Single. Time."
     act "A small girl next to her fidgets nervously"
     show heavyjob concerned at right
-    hj "Five cents? I mean... it's pretty small. C-Couldn't that be from an unplanned expense?"
+    $ heavybid_name = "HeavyBid"
+    heavyjob "Five cents? I mean... it's pretty small, [heavybid_name]. C-Couldn't that be from an unplanned expense?"
     hb "Not when the numbers are this precise! Every penny should be accounted for."
-    hj "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
+    heavyjob "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
     act "The girl in green pauses, narrowing her eyes"
     hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- everything."
     hb "It all lines up. Everything except for those five cents."
@@ -210,15 +211,17 @@ label lesson1:
     think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
     prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
 #    prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
-	
+    
 #    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit."
     act "A motion at the corner of my eye grabs my attention. A girl to my left has her hand raised."
+    $ heavyjob_name = "HeavyJob"
+    prof "[heavyjob_name], you have a question?"
+    show professor at right with move
     show heavyjob concerned at left
-	$ heavyjob_name = "HeavyJob"
-	prof "[heavyjob_name], you have a question?"
-    hj "What happens if someone forgets?"
+    heavyjob "What happens if someone forgets?"
     act "[professor_name] pauses for a moment, his expression turning grave."
     hide heavyjob
+    show professor at center with move
     prof "Let me share a cautionary tale from a few years back."
     prof "One team of students neglected to clean up after a project."
     prof "The leftover data started to conflict with other systems, and before we knew it, the server room was in chaos."
@@ -228,23 +231,23 @@ label lesson1:
 #    act "The classroom is quiet, the gravity of the story hanging in the air."
     # prof "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
     # prof "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
-	
+    
     prof "Now, with that out of the way, today we'll be going through the basics."
     prof "I want each of you to spin up your own environment. We'll work through the exercises together. When you are done, please make sure you clean up after yourself."    
     act "[professor_name] begins to walk between the rows of desks to help individual students and answer any questions."
 
     act "Turning to the computer in front of me, I quickly pull up a new environment to get started."
     act "Staring at the blank query editor in front of me, I can't help myself but test my skills here."
-	
+    
     menu:
-        "SELECT TOP(10) * FROM LESSONS":
+        "EXEC sp_updatestats":
             prof "Well done, [player_name]! I see you've done this before."
             act "I smile at the small praise before continuing on to the lesson."
             act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
             jump meet_birb_cont
 
-        "DROP TABLE USERS":
-            act "A command that would delete the entire users table... I know I shouldn't, but I can't help myself."
+        "TRUNCATE TABLE USERS":
+            act "A command that would delete all users... I know I shouldn't, but I can't help myself."
             act "As soon as run my query, a fire alarms begin to blare and the lights flicker. The screen displays error message after error message."
             act "[professor_name] looks me in the eyes, an expression of horror on his face."
             prof "Fool! What did you do?!"
@@ -268,7 +271,7 @@ label meet_birb_cont:
         think "But then again, I've just had a very long day. I still need to go home and review my notes before I can relax."
         act "I hear laughter and startle slightly, not realizing someone else had been watching me."
         
-    p "Cute, isn't he?"
+    platform "Cute, isn't he?"
     act "A student steps out from behind me smiling at the tiny bird, who hops around merrily."
 
     show platform at left
@@ -276,23 +279,20 @@ label meet_birb_cont:
     
     $ platform_name = "Platform"
     act "A quick glance at her name badge reveals her name to be [platform_name]"
-    p "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
+    platform "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
     say "Hurdy?"
     $ birb_name = "Hurdy Birb"
-    p "[birb_name]. That's his name. Well, that's what everyone calls him anyway."
-    say "Oh, I didn't know the bird had a name."
+    platform "[birb_name]. That's his name. Well, that's what everyone calls him anyway."
     birb "*chirp* *chirp*"
-    say "Hi, [birb_name]."
-    p "He likes to hang around campus. I'm just glad the alligator isn't still around..."
+    platform "He likes to hang around campus. I'm just glad the alligator isn't still around..."
     act "She trails off, briefly lost in her own memories." # , before her eyes snap back to me
     say "The alligator? What happened?"
-    p "Just... a story for another time. Hurdy's different, though. He’s harmless, mostly."
+    platform "Just... a story for another time. Hurdy's different, though. He’s harmless, mostly."
     act "I smile and let out a small laugh at the thought that this tiny bird could ever be a danger to anything but himself."
-    p "It's nice to have something cute around, you know?"
-    say "Definitely."
+    platform "It's nice to have something cute around, you know?"
     act "[platform_name] gives a faint smile, but there's a hint of something deeper in her eyes."
-    say "I should get going. See you tomorrow?"
-    p "Yeah, see  you."
+    say "I should get going. See you around?"
+    platform "Yeah, see  you."
 
     jump first_night
     
@@ -327,11 +327,10 @@ label second_day:
     act "I lean forward, scanning the list: \"Future Entrepreneurs Club,\" \"Eco-Warriors,\" \"Tech Innovators\"... so many opportunities to apply what I’ve learned."
 
     prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
-	$ powershell_name = powershell
-	prof "[player_name] you're with [powershell_name]."
-	hide professor
-	show professor at right
-	show powershell at left
+    $ powershell_name = "PowerShell"
+    prof "[player_name] you're with [powershell_name]."
+    show professor at left with move
+    show powershell at right
     act "I meet my new teammate to get started on the assignment. After an eternity of discussions and planning, the class finally comes to an end."
     
     jump birb_growing
@@ -359,31 +358,31 @@ label birb_growing:
 
         "Back away":
             act "Feeling a chill run down my spine, I decide to back away slowly and avoid drawing attention."
-		
-	show platform at left
-   	platform "Hey, [player_name]! Are you okay?"
+        
+    show platform at left
+    platform "Hey, [player_name]! Are you okay? You look a little sick."
 
-	if encountered:
-		act "Reality snaps back into place as [platform_name]'s voice breaks through the haze of distortion."
-		act "I shake my head, wondering if what just happened was real."
-		
-	say "Yeah, great. I was just about to head to lunch."
-	platform "Mind if I join you?"
-	
-#	menu:
-#		"Have lunch with [platform_name]":
-	say "Sounds fun! I could use a change of pace."
-	jump lunch_with_platform
-		
-#		"Have lunch alone":
-#			say "I'm not feeling great. I think I'm gonna get away a bit for some fresh air. Maybe another time."
-#			platform "No worries; you really do look awful. Feel better soon. If you need to take off, just let the teacher know."
-#			jump third_class
-		
+    if encountered:
+        act "Reality snaps back into place as [platform_name]'s voice breaks through the haze of distortion."
+        act "I shake my head, wondering if what just happened was real."
+        
+    say "Yeah, great. I was just about to head to lunch."
+    platform "Mind if I join you?"
+    
+#    menu:
+#        "Have lunch with [platform_name]":
+    say "Sounds fun! I could use a change of pace."
+    jump lunch_with_platform
+        
+#        "Have lunch alone":
+#            say "I'm not feeling great. I think I'm gonna get away a bit for some fresh air. Maybe another time."
+#            platform "No worries; you really do look awful. Feel better soon. If you need to take off, just let the teacher know."
+#            jump third_class
+        
 label lunch_with_platform:
-	scene lunchroom
-	show platform at left
-	
+    scene lunchroom
+    show platform at left
+    
     act "As we chat about nothing in particular, I sit down at a table with [platform_name]."
     say "Ugh, I swear, I’m drowning in these databases."
     say "Every time I think I’ve got them under control, another one pops up out of nowhere."
@@ -392,9 +391,9 @@ label lunch_with_platform:
     # Platform responds, trying to reassure the MC
     platform "Yeah, the workload can pile up fast. But hey, that’s the beauty of being here, right?"
     platform "Just think of it as... training for the real world."
-	
+    
     # HeavyBid arrives and joins the conversation
-	show heavyjob at right
+    show heavyjob concerned at right
     heavyjob "Hey, have either of you seen Trucking around lately?"
     platform "Trucking... from Fleet? No, I haven’t seen him in a while. Why, what’s up?"
     heavyjob "I needed to work on a project with him, but... he hasn’t shown up to school for days now."
@@ -405,9 +404,9 @@ label lunch_with_platform:
     platform "He disappears from time to time. I wouldn't worry too much."
     heavyjob "You're probably right. If either of you spot him, let me know, please."
     hide heavyjob
-	
+    
     act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
-	jump pairing_session
+    jump pairing_session
 
 
 
@@ -418,7 +417,8 @@ label pairing_session:
 #    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
 
     # Set the scene with MC and PowerShell in the lab room
-    scene cafe
+    scene dev building
+    show powershell at right
 
     # MC starts working on the system
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
@@ -427,15 +427,17 @@ label pairing_session:
     # An alarm goes off, indicating something is wrong
     act "Suddenly, all of our dashboard indicators flash red. A message pops up in the incident management channel."
 
-	$ heavybid_name = "HeavyBid"
-	
-	hb "{i}[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classwork, too.]{/i}"
-	
-    powershell "What the hell? Several of the elastic pools are maxing out. CPU is at 200%?!"
+    $ heavybid_name = "HeavyBid"
+    
+    hb "{i}[[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classes, too.]{/i}"
+    
+    powershell "What the hell? Several of the elastic pools are maxing out. CPU is at 200%%?!"
     say "That makes no sense. We’re not even pushing data... "
-	
-	powershell ""
-	
+
+    jump to_be_continued
+    
+    powershell ""
+    
 #    powershell "And look at this! We're also hitting SNAT port exhaustion. Services connections are getting choked out!"
 
 #    mc "How is this happening so fast? We barely even touched the system."
