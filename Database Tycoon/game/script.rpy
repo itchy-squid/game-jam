@@ -331,7 +331,15 @@ label second_day:
     prof "[player_name] you're with [powershell_name]."
     show professor at left with move
     show powershell at right
-    act "I meet my new teammate to get started on the assignment. After an eternity of discussions and planning, the class finally comes to an end."
+    act "[professor_name] continues down his list, assigning teams. PowerShell glances at me, her disinterest palpable. It’s clear she’d rather be anywhere else."
+
+    say "So, um, should we get started?"
+    ps "What do you mean by 'get started'? Be specific."
+    say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
+    ps "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
+    say "Right... let’s just create some duplicate databases off of the golden copy, and we’ll figure out the rest later."
+    act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
+    act "After an eternity of typing away in awkward silence, the class finally comes to an end."
     
     jump birb_growing
 
@@ -422,21 +430,26 @@ label pairing_session:
 
     # MC starts working on the system
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
-    say "I think I can balance some of these SQL pools. Just a few more tweaks—"
+    say "Realistically we need to optimize these queries, but we can deal with that later. Just a few more tweaks—"
 
     # An alarm goes off, indicating something is wrong
     act "Suddenly, all of our dashboard indicators flash red. A message pops up in the incident management channel."
-
-    $ heavybid_name = "HeavyBid"
-    
+    act "{i}[[⚠️ INCIDENT ALERT: Multiple environments are inaccessible. Please investigate. ⚠️]{/i}"
+    show heavybid at left
     hb "{i}[[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classes, too.]{/i}"
+    hide heavybid
+    powershell "Several of the elastic pools are maxing out. CPU is at 200%%"
+    say "What the hell? That makes no sense. We’re not even pushing data... "
+    act "From down the hallway, a faint, warbling chirp begins to steadily growing louder."
+    act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side. Overhead, the lights flicker violently, casting shifting shadows that seem to crawl along the ceiling, their shapes unnatural."
     
-    powershell "What the hell? Several of the elastic pools are maxing out. CPU is at 200%%?!"
-    say "That makes no sense. We’re not even pushing data... "
+    menu: 
+        "Investigate the chirping":
+            jump investigate_chirping
 
-    jump to_be_continued
+        "Roll back your changes":
+            jump rollback_changes
     
-    powershell ""
     
 #    powershell "And look at this! We're also hitting SNAT port exhaustion. Services connections are getting choked out!"
 
@@ -447,64 +460,170 @@ label pairing_session:
 #    powershell "It’s throttling everything! The whole system is backing up. Every environment connected to these pools is about to go down."
 
     # Chirping begins softly, signaling the bird’s influence
-    act "From the hallway outside, a faint chirping sound starts to grow louder."
 
-    mc "No... No way. It’s Hurdy Birb again. Every time something like this happens..."
+    # mc "No... No way. It’s Hurdy Birb again. Every time something like this happens..."
 
-    powershell "You can’t be serious—this is a technical issue, not a bird problem."
+    # powershell "You can’t be serious—this is a technical issue, not a bird problem."
 
-    mc "Look, the SNAT ports are exhausted, and the elastic pools are maxed, but none of this adds up. We’ve barely been working, and the resource usage is spiking!"
+    # mc "Look, the SNAT ports are exhausted, and the elastic pools are maxed, but none of this adds up. We’ve barely been working, and the resource usage is spiking!"
 
-    act "The chirping grows louder, almost vibrating through the walls, as though it's coming from the very infrastructure of the building."
+    # act "The chirping grows louder, almost vibrating through the walls, as though it's coming from the very infrastructure of the building."
 
-    mc "It's feeding on this. I swear, it’s like the bird is tied to the system somehow."
+    # mc "It's feeding on this. I swear, it’s like the bird is tied to the system somehow."
 
-    powershell "That’s insane."
+    # powershell "That’s insane."
 
-    # The environment crashes, locking both MC and PowerShell out
-    act "The screens flash red, and suddenly, all access to the system is lost. A final message appears: 'System Outage: All Elastic Pools Overloaded.'"
+    # # The environment crashes, locking both MC and PowerShell out
+    # act "The screens flash red, and suddenly, all access to the system is lost. A final message appears: 'System Outage: All Elastic Pools Overloaded.'"
 
-    powershell "(flatly) Great. Now we’re locked out. We need to reset everything before the admins notice."
+    # powershell "(flatly) Great. Now we’re locked out. We need to reset everything before the admins notice."
 
-    mc "But this isn’t just us! Look at the logs—these spikes happened *before* we even started working. It’s like something is deliberately causing this."
+    # mc "But this isn’t just us! Look at the logs—these spikes happened *before* we even started working. It’s like something is deliberately causing this."
 
-    act "The lights flicker. Hurdy Birb’s chirping becomes more erratic, echoing from outside the window."
+    # act "The lights flicker. Hurdy Birb’s chirping becomes more erratic, echoing from outside the window."
 
-    powershell "You’re not seriously going to keep blaming that bird, are you?"
+    # powershell "You’re not seriously going to keep blaming that bird, are you?"
 
-    mc "You don’t see it? Every time the bird appears, something happens to the system. It’s feeding off the environment—like it’s growing with every outage."
+    # mc "You don’t see it? Every time the bird appears, something happens to the system. It’s feeding off the environment—like it’s growing with every outage."
 
-    powershell "(sighs) Fine, whatever you say. But for now, we need to figure out how to stop these elastic pools from maxing out. Otherwise, we're dead in the water."
+    # powershell "(sighs) Fine, whatever you say. But for now, we need to figure out how to stop these elastic pools from maxing out. Otherwise, we're dead in the water."
 
-    mc "I’ll see if I can reroute some of the connections, but if this keeps happening, the entire network is going to crash."
+    # mc "I’ll see if I can reroute some of the connections, but if this keeps happening, the entire network is going to crash."
 
-    # The birb chirps loudly, signifying the impending threat
-    act "The screen flickers again, and the chirping reaches a deafening pitch. MC looks toward the window, seeing Hurdy Birb’s silhouette looming larger than before."
+    # # The birb chirps loudly, signifying the impending threat
+    # act "The screen flickers again, and the chirping reaches a deafening pitch. MC looks toward the window, seeing Hurdy Birb’s silhouette looming larger than before."
 
-    mc "(whispers) We’re running out of time."
+    # mc "(whispers) We’re running out of time."
 
-    jump to_be_continued
+    # jump to_be_continued
 
+label investigate_chirping:
 
-# label eldritch_horror_early:
-#     birb "You hold the key to vast networks, databases ripe for the taking. Spin them up for me, and together we shall transcend this feeble existence."
-#     act "My fingers twitch uncontrollably as I feel an overwhelming compulsion to comply. A mix of fear and confusion washes over me."
-#     act "Against my will, I pull out my laptop, the screen lighting up with commands ready to execute, my network privileges granting me access to the school’s resources."
-#     act "I start typing, my mind racing as I summon endless databases—one after another, they materialize, feeding Hurdy's insatiable hunger for more."
-#     act "Hurdy’s form begins to distort, growing larger and more grotesque, tentacles unfurling from his sides, writhing with a life of their own."
-#     hide hurdybirb growing
-#     show hurdybirb large at right
-#     birb "Yes! More! Feed me! Let the data flow like a river of sustenance!"
-#     act "As the databases grow, Hurdy’s transformation accelerates, shifting into an unimaginable eldritch horror, a swirling mass of eyes, tentacles, and chaos."
-#     act "The hall trembles, the air thick with a sense of impending doom as I feel the walls of the school beginning to crack."
-#     birb "With each new database, I become stronger! Soon, the school will be mine to consume!"
-#     act "I watch in horror as the tendrils of Hurdy extend throughout the building, coiling around everything, pulling it into him as he devours the essence of HSCSHS."
-#     act "In a final surge, the entire school shakes violently, and reality distorts into a kaleidoscope of color and sound."
-#     act "And then, everything goes dark."
-#     show black with fade
-#     act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
-#     return
+    act "The sound echoes faintly down the hallway, bouncing off the walls."
+    mc "I should check the server room. That sound can't just be a coincidence."
+    act "As I step forward, the ground beneath me shifts unnaturally, pulling me sideways one moment and pushing me down the next, making each step a struggle."
+    act "The door to the server room looms ahead, slightly ajar."
+
+    scene server_room_pulsing
+
+    act "Inside, the server racks pulse like grotesque, living organs. The machines, once cold and metallic, now throb with a sickly rhythm."
+    act "Cables writhe like veins, coiling in and out of the servers, twitching with every pulse."
+
+    mc "What is this...?"
+
+    act "Then I see it—perched atop the largest server."
     
+    # Hurdy Birb in final form appears
+    show hurdy_birb_final
+
+    act "His feathers have stretched into long, jagged spines, twisting into grotesque shapes."
+    act "His once-small eyes glow with an eerie, unnatural light, now cold and piercing."
+    act "Tentacle-like appendages extend from his wings, digging into the servers, feeding on the chaos."
+    act "The warbling chirping that once seemed harmless now distorts into a horrific screech, echoing through the room."
+    act "Hurdy’s massive, monstrous form pulses in rhythm with the servers, as if the entire system is an extension of him now."
+
+    act "Hurdy turns his gaze towards me. The low thumping of the servers, now in sync with Hurdy’s breathing, grows louder and more erratic."
+
+    menu:
+    "Every instinct screams at me to act. I could stand my ground, but is that really the best choice? Maybe I can try to find help before it’s too late.":
+        
+        "Brace myself and face it head-on":
+            jump fight_scene
+        
+        "Run and get help before it consumes everything":
+            jump get_help_scene
+
+label fight_scene:
+    act "I steel myself, heart pounding, as the room seems to warp around me. The very air grows heavy, thick with... something. Hurdy's twisted, monstrous form looms impossibly large."
+    act "For a moment, everything is still."
+    act "Then, it happens. A blur of motion, faster than thought, and the air is alive with the writhing of tendrils. I feel them move, weaving through the space between moments."
+    act "I lash out instinctively, but my body betrays me—sluggish, stiff. Years of sitting at my desk, hunched over a terminal, come crashing down on me in this moment."
+    act "The tendrils coil around my arm, my legs... They sink into the core of my being."
+    mc "No—"
+    act "Reality begins to slip. My limbs feel distant, disconnected, as if I’m watching my body from some far-off place. I try to resist, to pull away, but every attempt only draws me deeper into the abyss."
+    act "The sound of Hurdy’s chirping distorts, becoming a maddening symphony of whispers, too many voices, too many languages, inhuman. It fills my mind, smothering my will beneath its weight."
+    mc "I... I can't..."
+
+    scene black with fade
+
+    act "The room melts into darkness, and all that remains is Hurdy—his form no longer confined by shape or logic. He is everything, everywhere, his tendrils an infinite web of control."
+    act "I can feel my mind unraveling, thoughts dissolving into fragments as the tendrils pulse, deeper, deeper... until I am no longer sure where Hurdy ends and I begin."
+    think "Is this... me?"
+    act "Hurdy’s screech rises again, triumphant, but now it’s inside me. I am no longer separate. I am no longer... me."
+    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
+    return
+
+label rollback_changes:
+
+    # MC at his terminal, typing frantically
+  
+    act "I can hear the warbling chirp growing louder, but I can’t focus on that right now."
+    act "If I roll back my changes, maybe I can at least stabilize things for a moment."
+    mc "Alright. Let's just undo my last set of changes. That should stop the bleeding."
+
+    act "At the same time, [powershell_name]'s fingers fly across the keyboard as we begin the rollback."
+
+    show terminal_warning with dissolve
+
+    mc "Come on, come on... Rollback complete. Just give me something."
+
+    # The building begins manifesting issues around the MC
+    "Suddenly, the floor beneath me begins to shake. The lights overhead flicker violently, casting warped shadows along the walls."
+
+    scene mc_terminal_glitch with dissolve
+
+    "The monitors in front of me glitch and distort, the code on the screen twisting into incomprehensible symbols."
+    "From the corner of my eye, I see the walls themselves ripple, as though the building is... breathing."
+
+    mc "What the hell is happening to this place...?"
+
+    "A loud crack echoes through the hallway outside my door, followed by the groaning of metal, as if the entire structure is starting to warp under some unseen pressure."
+    
+    mc "Okay, that rollback better kick in fast..."
+
+    # A brief lull in the chaos
+    "Just as the noise and chaos reach a fever pitch, everything stops."
+    "The shaking ceases, the flickering lights stabilize, and for a moment, the world is silent."
+
+    mc "Wait... Did that actually work?"
+
+    "I stare at the screen. The warnings are still there, but the system seems to be... holding. I take a deep breath, trying to calm my racing heart."
+
+    mc "Maybe I fixed it... Maybe that rollback was enough."
+
+    # The chaos begins to pick back up
+    "But then, just as I let out a sigh of relief, I hear it again. That low, warbling chirp."
+    "The lights begin to flicker once more, and the ground trembles beneath my feet."
+
+    mc "No... It’s not over."
+
+    "Suddenly, the screens crackle to life, displaying new errors. Warnings flash even faster than before. The whole system is unraveling again."
+
+    show terminal_error with dissolve
+
+    mc "The rollback only delayed it... This isn’t just about my changes. It’s the whole system. It’s the tech debt."
+
+    # Realization and starting to clean up the databases
+    mc "Hurdy’s growing because of all the neglected issues, all the forgotten databases. It’s not just me—it’s everything that’s piled up over time."
+
+    "I type quickly, pulling up the list of all the unused, bloated databases that have been accumulating for months. There's so much... more than I even realized."
+
+    mc "If I start cleaning this up... maybe I can stop this."
+
+    "I begin the process of clearing out the dead weight, deleting unnecessary databases, optimizing configurations that should have been fixed ages ago."
+
+    mc "No more shortcuts. I need to clean this entire system up if we’re going to have a chance."
+
+    # Visual chaos around the building starts to stabilize briefly again
+    "As I work, the shaking subsides once more. The flickering lights slow to a steady rhythm, the chaotic distortion of reality calming for the briefest moment."
+
+    mc "It’s working... I just have to keep going."
+
+    "But I know this isn’t going to be quick. The tech debt is deep. Hurdy isn’t just going to disappear with a few fixes."
+    "Still, I keep typing, clearing out every unnecessary file, every forgotten database. It’s the only way."
+
+    return
+
 label to_be_continued:
     scene black with fade
     show text "to be continued..."
