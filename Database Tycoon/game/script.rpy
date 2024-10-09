@@ -500,21 +500,22 @@ label pairing_session:
 label investigate_chirping:
 
     act "The sound echoes faintly down the hallway, bouncing off the walls."
-    mc "I should check the server room. That sound can't just be a coincidence."
+    say "I should check the server room. That sound can't just be a coincidence."
+    hide powershell
     act "As I step forward, the ground beneath me shifts unnaturally, pulling me sideways one moment and pushing me down the next, making each step a struggle."
     act "The door to the server room looms ahead, slightly ajar."
 
-    scene server_room_pulsing
+    scene server room pulsing
 
     act "Inside, the server racks pulse like grotesque, living organs. The machines, once cold and metallic, now throb with a sickly rhythm."
     act "Cables writhe like veins, coiling in and out of the servers, twitching with every pulse."
 
-    mc "What is this...?"
+    say "What is this...?"
 
     act "Then I see it—perched atop the largest server."
     
     # Hurdy Birb in final form appears
-    show hurdy_birb_final
+    show hurdybirb final
 
     act "His feathers have stretched into long, jagged spines, twisting into grotesque shapes."
     act "His once-small eyes glow with an eerie, unnatural light, now cold and piercing."
@@ -523,10 +524,9 @@ label investigate_chirping:
     act "Hurdy’s massive, monstrous form pulses in rhythm with the servers, as if the entire system is an extension of him now."
 
     act "Hurdy turns his gaze towards me. The low thumping of the servers, now in sync with Hurdy’s breathing, grows louder and more erratic."
-
-    menu:
-    "Every instinct screams at me to act. I could stand my ground, but is that really the best choice? Maybe I can try to find help before it’s too late.":
+    act "Every instinct screams at me to act. I could stand my ground, but is that really the best choice? Maybe I can try to find help before it’s too late."
         
+    menu:
         "Brace myself and face it head-on":
             jump fight_scene
         
@@ -539,10 +539,10 @@ label fight_scene:
     act "Then, it happens. A blur of motion, faster than thought, and the air is alive with the writhing of tendrils. I feel them move, weaving through the space between moments."
     act "I lash out instinctively, but my body betrays me—sluggish, stiff. Years of sitting at my desk, hunched over a terminal, come crashing down on me in this moment."
     act "The tendrils coil around my arm, my legs... They sink into the core of my being."
-    mc "No—"
+    say  "No—"
     act "Reality begins to slip. My limbs feel distant, disconnected, as if I’m watching my body from some far-off place. I try to resist, to pull away, but every attempt only draws me deeper into the abyss."
     act "The sound of Hurdy’s chirping distorts, becoming a maddening symphony of whispers, too many voices, too many languages, inhuman. It fills my mind, smothering my will beneath its weight."
-    mc "I... I can't..."
+    say  "I... I can't..."
 
     scene black with fade
 
@@ -559,13 +559,13 @@ label rollback_changes:
   
     act "I can hear the warbling chirp growing louder, but I can’t focus on that right now."
     act "If I roll back my changes, maybe I can at least stabilize things for a moment."
-    mc "Alright. Let's just undo my last set of changes. That should stop the bleeding."
+    say  "Alright. Let's just undo my last set of changes. That should stop the bleeding."
 
     act "At the same time, [powershell_name]'s fingers fly across the keyboard as we begin the rollback."
 
     show terminal_warning with dissolve
 
-    mc "Come on, come on... Rollback complete. Just give me something."
+    say  "Come on, come on... Rollback complete. Just give me something."
 
     # The building begins manifesting issues around the MC
     "Suddenly, the floor beneath me begins to shake. The lights overhead flicker violently, casting warped shadows along the walls."
@@ -575,49 +575,49 @@ label rollback_changes:
     "The monitors in front of me glitch and distort, the code on the screen twisting into incomprehensible symbols."
     "From the corner of my eye, I see the walls themselves ripple, as though the building is... breathing."
 
-    mc "What the hell is happening to this place...?"
+    say  "What the hell is happening to this place...?"
 
     "A loud crack echoes through the hallway outside my door, followed by the groaning of metal, as if the entire structure is starting to warp under some unseen pressure."
     
-    mc "Okay, that rollback better kick in fast..."
+    say  "Okay, that rollback better kick in fast..."
 
     # A brief lull in the chaos
     "Just as the noise and chaos reach a fever pitch, everything stops."
     "The shaking ceases, the flickering lights stabilize, and for a moment, the world is silent."
 
-    mc "Wait... Did that actually work?"
+    say  "Wait... Did that actually work?"
 
     "I stare at the screen. The warnings are still there, but the system seems to be... holding. I take a deep breath, trying to calm my racing heart."
 
-    mc "Maybe I fixed it... Maybe that rollback was enough."
+    say  "Maybe I fixed it... Maybe that rollback was enough."
 
     # The chaos begins to pick back up
     "But then, just as I let out a sigh of relief, I hear it again. That low, warbling chirp."
     "The lights begin to flicker once more, and the ground trembles beneath my feet."
 
-    mc "No... It’s not over."
+    say  "No... It’s not over."
 
     "Suddenly, the screens crackle to life, displaying new errors. Warnings flash even faster than before. The whole system is unraveling again."
 
     show terminal_error with dissolve
 
-    mc "The rollback only delayed it... This isn’t just about my changes. It’s the whole system. It’s the tech debt."
+    say  "The rollback only delayed it... This isn’t just about my changes. It’s the whole system. It’s the tech debt."
 
     # Realization and starting to clean up the databases
-    mc "Hurdy’s growing because of all the neglected issues, all the forgotten databases. It’s not just me—it’s everything that’s piled up over time."
+    say  "Hurdy’s growing because of all the neglected issues, all the forgotten databases. It’s not just me—it’s everything that’s piled up over time."
 
     "I type quickly, pulling up the list of all the unused, bloated databases that have been accumulating for months. There's so much... more than I even realized."
 
-    mc "If I start cleaning this up... maybe I can stop this."
+    say  "If I start cleaning this up... maybe I can stop this."
 
     "I begin the process of clearing out the dead weight, deleting unnecessary databases, optimizing configurations that should have been fixed ages ago."
 
-    mc "No more shortcuts. I need to clean this entire system up if we’re going to have a chance."
+    say  "No more shortcuts. I need to clean this entire system up if we’re going to have a chance."
 
     # Visual chaos around the building starts to stabilize briefly again
     "As I work, the shaking subsides once more. The flickering lights slow to a steady rhythm, the chaotic distortion of reality calming for the briefest moment."
 
-    mc "It’s working... I just have to keep going."
+    say  "It’s working... I just have to keep going."
 
     "But I know this isn’t going to be quick. The tech debt is deep. Hurdy isn’t just going to disappear with a few fixes."
     "Still, I keep typing, clearing out every unnecessary file, every forgotten database. It’s the only way."
