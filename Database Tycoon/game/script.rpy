@@ -328,15 +328,15 @@ label second_day:
 
     prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
     $ powershell_name = "PowerShell"
-    prof "[player_name] you're with [powershell_name]."
+    prof "[professor_name] motions towards a student nearby. [player_name], you're with [powershell_name]."
     show professor at left with move
     show powershell at right
     act "[professor_name] continues down his list, assigning teams. PowerShell glances at me, her disinterest palpable. It’s clear she’d rather be anywhere else."
 
     say "So, um, should we get started?"
-    ps "What do you mean by 'get started'? Be specific."
+    powershell "What do you mean by 'get started'? I'm going to need you to be specific."
     say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
-    ps "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
+    powershell "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
     say "Right... let’s just create some duplicate databases off of the golden copy, and we’ll figure out the rest later."
     act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
     act "After an eternity of typing away in awkward silence, the class finally comes to an end."
@@ -390,7 +390,7 @@ label birb_growing:
 label lunch_with_platform:
     scene lunchroom
     show platform at left
-    
+    # todo continuity issues. he only just got access to prod. why would this complaint be valid.
     act "As we chat about nothing in particular, I sit down at a table with [platform_name]."
     say "Ugh, I swear, I’m drowning in these databases."
     say "Every time I think I’ve got them under control, another one pops up out of nowhere."
@@ -433,15 +433,18 @@ label pairing_session:
     say "Realistically we need to optimize these queries, but we can deal with that later. Just a few more tweaks—"
 
     # An alarm goes off, indicating something is wrong
-    act "Suddenly, all of our dashboard indicators flash red. A message pops up in the incident management channel."
-    act "{i}[[⚠️ INCIDENT ALERT: Multiple environments are inaccessible. Please investigate. ⚠️]{/i}"
+    act "Suddenly, all of our dashboard indicators flash red. Message after message begin flooding the incident management channel."
+    act "{i}[[INCIDENT ALERT: Multiple environments are inaccessible. Please investigate.]{/i}"
     show heavybid at left
     hb "{i}[[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classes, too.]{/i}"
     hide heavybid
     powershell "Several of the elastic pools are maxing out. CPU is at 200%%"
     say "What the hell? That makes no sense. We’re not even pushing data... "
-    act "From down the hallway, a faint, warbling chirp begins to steadily growing louder."
-    act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side. Overhead, the lights flicker violently, casting shifting shadows that seem to crawl along the ceiling, their shapes unnatural."
+    act "From down the hallway, a faint, warbling chirp begins to steadily grow louder."
+
+    if encountered:
+        act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side."
+        act "Overhead, the lights flicker violently, casting shifting shadows that seem to crawl along the ceiling, their shapes unnatural."
     
     menu: 
         "Investigate the chirping":
@@ -449,53 +452,6 @@ label pairing_session:
 
         "Roll back your changes":
             jump rollback_changes
-    
-    
-#    powershell "And look at this! We're also hitting SNAT port exhaustion. Services connections are getting choked out!"
-
-#    mc "How is this happening so fast? We barely even touched the system."
-
-#    act "The screen glitches, displaying warnings about SNAT port exhaustion and timeouts as connection failures start cascading."
-
-#    powershell "It’s throttling everything! The whole system is backing up. Every environment connected to these pools is about to go down."
-
-    # Chirping begins softly, signaling the bird’s influence
-
-    # mc "No... No way. It’s Hurdy Birb again. Every time something like this happens..."
-
-    # powershell "You can’t be serious—this is a technical issue, not a bird problem."
-
-    # mc "Look, the SNAT ports are exhausted, and the elastic pools are maxed, but none of this adds up. We’ve barely been working, and the resource usage is spiking!"
-
-    # act "The chirping grows louder, almost vibrating through the walls, as though it's coming from the very infrastructure of the building."
-
-    # mc "It's feeding on this. I swear, it’s like the bird is tied to the system somehow."
-
-    # powershell "That’s insane."
-
-    # # The environment crashes, locking both MC and PowerShell out
-    # act "The screens flash red, and suddenly, all access to the system is lost. A final message appears: 'System Outage: All Elastic Pools Overloaded.'"
-
-    # powershell "(flatly) Great. Now we’re locked out. We need to reset everything before the admins notice."
-
-    # mc "But this isn’t just us! Look at the logs—these spikes happened *before* we even started working. It’s like something is deliberately causing this."
-
-    # act "The lights flicker. Hurdy Birb’s chirping becomes more erratic, echoing from outside the window."
-
-    # powershell "You’re not seriously going to keep blaming that bird, are you?"
-
-    # mc "You don’t see it? Every time the bird appears, something happens to the system. It’s feeding off the environment—like it’s growing with every outage."
-
-    # powershell "(sighs) Fine, whatever you say. But for now, we need to figure out how to stop these elastic pools from maxing out. Otherwise, we're dead in the water."
-
-    # mc "I’ll see if I can reroute some of the connections, but if this keeps happening, the entire network is going to crash."
-
-    # # The birb chirps loudly, signifying the impending threat
-    # act "The screen flickers again, and the chirping reaches a deafening pitch. MC looks toward the window, seeing Hurdy Birb’s silhouette looming larger than before."
-
-    # mc "(whispers) We’re running out of time."
-
-    # jump to_be_continued
 
 label investigate_chirping:
 
@@ -528,12 +484,12 @@ label investigate_chirping:
         
     menu:
         "Brace myself and face it head-on":
-            jump fight_scene
+            jump fight
         
         "Run and get help before it consumes everything":
-            jump get_help_scene
+            jump get_help
 
-label fight_scene:
+label fight:
     act "I steel myself, heart pounding, as the room seems to warp around me. The very air grows heavy, thick with... something. Hurdy's twisted, monstrous form looms impossibly large."
     act "For a moment, everything is still."
     act "Then, it happens. A blur of motion, faster than thought, and the air is alive with the writhing of tendrils. I feel them move, weaving through the space between moments."
@@ -553,15 +509,51 @@ label fight_scene:
     act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
     return
 
+label get_help:
+    act "There’s no time. I need to run."
+    scene dev building
+    # Scene: Hallways (MC running away)
+    act "I sprint as fast as I can, but the air is thick with reality warping in on itself."
+    scene cluster
+    show professor
+    say "[professor_name], [birb_name] has taken over the server room!"
+    act "His eyes narrow with a piercing stare. A still moment passes, then he cracks his knuckles."
+    prof "Evacuate the building. Get the students out of here. The staff will take care of this."
+
+    scene bedroom with fade
+    act "Hours later, I sit at my desk, staring at the flickering light of my computer screen."
+    act "After I left the classroom, everything happened so fast."
+    
+    scene entrance with dissolve
+    act "The students gathered at the entrance in small groups, murmuring in confusion."
+    act "Police cars and fire trucks quickly lined the street in front of the school, their lights flashing silently."
+    act "SWAT teams marched into the building, fully armed, while we stood there without any news of what was happening inside."
+    act "Eventually, we were told to evacuate the area..."
+
+    scene bedroom with fade
+    act "Now, back in my room, I watch the news without fully processing what I'm seeing, the screen glowing faintly."
+    act "The live feed crackles with interference, a drone of distorted sound, as the camera focuses on the remains of the school."
+    act "The building... it no longer resembles something made by human hands."
+    act "The walls writhe and twist, a living structure, buckling under the weight of some unfathomable force."
+    act "And then I see it."
+    act "The air above the school ripples, like the fabric of the world is being pulled apart, threads of reality unraveling."
+    act "Beyond the tear... something stirs. Something ancient, something that should not exist."
+    act "Dark, writhing tendrils slither down from the sky, their shapes lash out. Buildings, cars, trees are consumed by the void."
+
+    act "The sky... is no longer a sky. Something pressing down on the world, something multidimensional,.. greater than my limited senses can perceive."
+
+    act "The feed flickers, the image distorting, breaking apart into shards of static. The world goes dark." 
+    scene black
+    say "This... is the end, isn’t it?"
+    return
+    
 label rollback_changes:
-
-    # MC at his terminal, typing frantically
-  
-    act "I can hear the warbling chirp growing louder, but I can’t focus on that right now."
-    act "If I roll back my changes, maybe I can at least stabilize things for a moment."
+    if encountered:
+        act "I can taste reality bending around me, but I can’t focus on that right now."
+    act "I can't exactly roll back my query, but I can kill it. Maybe that will stabilize things."
     say  "Alright. Let's just undo my last set of changes. That should stop the bleeding."
-
-    act "At the same time, [powershell_name]'s fingers fly across the keyboard as we begin the rollback."
+    act "[powershell_name]'s fingers fly across the keyboard as we begin to abort."
+    jump to_be_continued
 
     show terminal_warning with dissolve
 
