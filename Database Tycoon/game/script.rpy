@@ -640,22 +640,65 @@ label rollback_changes:
     powershell "Now?! In case you hadn't noticed, I was almost impaled by a giant, feathered tentacle!"
 
     show platform at left
-    platform "This place is falling apart, and you two are standing here talking?!"
+    platform "The fabric of reality is tearing apart, and you two are standing here talking?!"
 
     act "I spin around, and there is Platform, appearing out of nowhere, pushing through the chaos." 
-    say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed him." 
+    
+    say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed into this transformation." 
     say "We have to clean up our rogue databases."
     
+    act "I yank my laptop back out of my bag, the screen flickering to life. [powershell_name] and [platform_name] follow suit without a word."
     
+    platform "I think I have an old dev instance from last semester? No one's touched it in months."
     
-    
-    
+    powershell "There's also that redundant staging environment from the marketing team. It’s been idle for weeks."
 
-    pause(1)
-    show flash
+    say "Right. And I’m pretty sure the demo environment for that canceled project is still up too."
+
+    act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."
     
+    act "For a moment, the swirling chaos around the school seems to stall--walls stop rippling, and the ground ceases its tremors."
     
-        
+    say "It's working... we’re slowing it down!"
+    
+    act "But just as hope flickers inside of us, [birb_name] lets out a low, guttural growl. The destruction surges back, buildings cracking and the ground buckling beneath us."
+    
+    say "I don't think this is going to be enough. It's not like we were the only ones who took shortcuts to get things done."
+    say "Everyone did it. There are so many rogue environments I can't even count them."
+    say "Take a look at this--" 
+    act "Waving my hand, I gesture at my screen."
+    say "Who on earth is Dane, and why does he have 36 environments to himself? He's not the only one either. This person, Safety, has a handful too."
+    
+    platform "I know who we need! Come with me."
+    jump sarahvon
+    
+label sarahvon:
+    scene closet with dissolve
+    
+    act "Platform leads us down a narrow, dim corridor, the air thick with an unnatural pressure as if the walls themselves are watching us."
+    say "Where are we?"
+    platform "A forgotten server room. Come on. We should be safe in here for now."
+    act "Inside, servers hum in the cramped space."
+
+    show sarahvon at left
+    
+    platform "This is S.A.R.a.H.V.O.N. She maintains the databases as best she can. She'll be the best person to help us clean up the databases."
+    sarahvon "You’re [powershell_name], right? I heard you're pretty efficient--I need your help. I've got the perfect thing if we're finally going to blow away these rogue environments."
+    
+    show powershell at right
+    
+    powershell "Yeah, let’s do this."
+    act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
+    
+    platform "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
+    act "I follow Platform back outside, leaving PowerShell and [sarahvon_name] to their task."
+    
+    jump evacutation
+    
+label evacuation:
+
+    scene entrance with fade
+     
     jump to_be_continued
 
     return
