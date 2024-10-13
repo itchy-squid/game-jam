@@ -14,6 +14,16 @@ init python:
                 return name
             else:
                 return ""
+                
+    image flashback_frame = Frame(Solid("#000000"), 50, 50) 
+    
+    image flash:
+        "#f00"
+        alpha 0.0
+        linear .45 alpha 1.0     
+        linear .45 alpha 0.0
+        pause 2.0
+        repeat
 
 # r: https://cdn.midjourney.com/733e59b0-5e01-42ae-bdc6-d6b509e385d6/0_0.png
 # hb: 
@@ -337,10 +347,39 @@ label second_day:
     powershell "What do you mean by 'get started'? I'm going to need you to be specific."
     say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
     powershell "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
-    say "Right... let’s just create some duplicate databases off of the golden copy, and we’ll figure out the rest later."
+    say "Right... let’s just create some duplicate databases off of the golden copy."
+    say "We’ll figure out the rest later."
     act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
     act "After an eternity of typing away in awkward silence, the class finally comes to an end."
     
+    jump pairing_session
+
+label pairing_session:
+
+    scene dev building
+    with fade
+
+    act "Over the course of the next several weeks, [powershell_name] and I made a habit of grabbing some empty lounge chairs to work together in the Dev building."
+    "At first, our meetups were rocky--strained, to say the least."
+    "But over the weeks, we’d settled into a kind of rhythm. Begrudging, sure, but it worked."
+    "It turned out that [powershell_name] was technically quite capable, but also had a tendency to be finicky with requests."
+    
+    show powershell
+    
+    say "Let’s just get this released."
+    act "I know I was skipping over some finer details, but this latest round of environments is due in just a few hours. Details don’t matter, not today."
+
+    powershell "Cutting corners again? Have you even bothered to test those changes?"
+
+    say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
+    say "There's no good way to test this stuff. Something is better than nothing."
+
+    powershell "[powershell_name] gave me a sharp look, but she couldn’t argue."
+    
+    powershell "Fine. Let’s just get it done."
+
+    act "And with that, we pushed the update to production, neverminding about the finer details."
+
     jump birb_growing
 
 label birb_growing:
@@ -414,11 +453,9 @@ label lunch_with_platform:
     hide heavyjob
     
     act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
-    jump pairing_session
+    jump outage
 
-
-
-label pairing_session:
+label outage:
     scene black with fade
 #    act "Over the next few weeks, the memory of that encounter with [birb_name] lingers in my mind. I frequently find myself distracted in class."
 #    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
@@ -429,10 +466,14 @@ label pairing_session:
     show powershell at right
 
     # MC starts working on the system
+    act "Some time later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
-    say "Realistically we need to optimize these queries, but we can deal with that later. Just a few more tweaks—"
+    say "Realistically we need to optimize these queries, but we can deal with that later."
+    say "Just a few more tweaks—"
+    act "I hit the button to run my query and then several things happen at once--"
 
     # An alarm goes off, indicating something is wrong
+    show flash
     act "Suddenly, all of our dashboard indicators flash red. Message after message begin flooding the incident management channel."
     act "{i}[[INCIDENT ALERT: Multiple environments are inaccessible. Please investigate.]{/i}"
     show heavybid at left
@@ -458,6 +499,7 @@ label investigate_chirping:
     act "The sound echoes faintly down the hallway, bouncing off the walls."
     say "I should check the server room. That sound can't just be a coincidence."
     hide powershell
+    hide flash
     act "As I step forward, the ground beneath me shifts unnaturally, pulling me sideways one moment and pushing me down the next, making each step a struggle."
     act "The door to the server room looms ahead, slightly ajar."
 
@@ -551,68 +593,70 @@ label rollback_changes:
     if encountered:
         act "I can taste reality bending around me, but I can’t focus on that right now."
     act "I can't exactly roll back my query, but I can kill it. Maybe that will stabilize things."
-    say  "Alright. Let's just undo my last set of changes. That should stop the bleeding."
+    say  "Alright. Let's just abort my last query. That should stop the bleeding."
     act "[powershell_name]'s fingers fly across the keyboard as we begin to abort."
-    jump to_be_continued
 
-    show terminal_warning with dissolve
-
-    say  "Come on, come on... Rollback complete. Just give me something."
-
-    # The building begins manifesting issues around the MC
-    "Suddenly, the floor beneath me begins to shake. The lights overhead flicker violently, casting warped shadows along the walls."
-
-    scene mc_terminal_glitch with dissolve
-
-    "The monitors in front of me glitch and distort, the code on the screen twisting into incomprehensible symbols."
-    "From the corner of my eye, I see the walls themselves ripple, as though the building is... breathing."
-
-    say  "What the hell is happening to this place...?"
-
-    "A loud crack echoes through the hallway outside my door, followed by the groaning of metal, as if the entire structure is starting to warp under some unseen pressure."
+    hide flash
     
-    say  "Okay, that rollback better kick in fast..."
+    act "For a brief moment, everything is frozen. The air hangs heavy in silence. Alerts stopped flashing. The incident management channel goes quiet."
+    show flash
+    act "A moment later, a slick, writhing tentacle, trimmed in bright green, bursts through the floor, its touch warping the air around it."
+    powershell "WHAT THE--?!"
+    act "The green of the tentacles tugs at the edges of my mind, and suddenly it hits me. That green, the chirping--"
+    act "It hits me like a punch to the gut--Hurdy’s transformation isn’t some random anomaly. He’s been feeding off every shortcut, every system we patched over instead of fixing."
+    act "The tech debt… it’s been shaping him all along."
+    
+    show flashback_frame with dissolve
+    show cluster with dissolve
+    show powershell at right
+    say "Right... let’s just create some duplicate databases off of the golden copy."
+    say "We’ll figure out the rest later."
+    hide cluster
+    hide powershell
+    
+    show dev building with dissolve
+    show powershell
+    powershell "Cutting corners again? Have you even bothered to test those changes?"
+    say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
+    hide dev building
+    hide powershell
+    
+    show dev buildling with dissolve
+    show powershell at right
+    say "Realistically we need to optimize these queries, but we can deal with that later."
+    hide dev building
+    hide flashback_frame
+    
+    # todo: add flashback_frame to run away ending
+    
+    say "I know what this is!"
+    say "Quick, let's get out of here and I'll explain!"
+    act "As we run out of the building, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
+    
+    scene walkway
+    show powershell at right
+    
+    say "We need to clean up the databases!"
+    powershell "Now?! In case you hadn't noticed, I was almost impaled by a giant, feathered tentacle!"
 
-    # A brief lull in the chaos
-    "Just as the noise and chaos reach a fever pitch, everything stops."
-    "The shaking ceases, the flickering lights stabilize, and for a moment, the world is silent."
+    show platform at left
+    platform "This place is falling apart, and you two are standing here talking?!"
 
-    say  "Wait... Did that actually work?"
+    act "I spin around, and there is Platform, appearing out of nowhere, pushing through the chaos." 
+    say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed him." 
+    say "We have to clean up our rogue databases."
+    
+    
+    
+    
+    
 
-    "I stare at the screen. The warnings are still there, but the system seems to be... holding. I take a deep breath, trying to calm my racing heart."
-
-    say  "Maybe I fixed it... Maybe that rollback was enough."
-
-    # The chaos begins to pick back up
-    "But then, just as I let out a sigh of relief, I hear it again. That low, warbling chirp."
-    "The lights begin to flicker once more, and the ground trembles beneath my feet."
-
-    say  "No... It’s not over."
-
-    "Suddenly, the screens crackle to life, displaying new errors. Warnings flash even faster than before. The whole system is unraveling again."
-
-    show terminal_error with dissolve
-
-    say  "The rollback only delayed it... This isn’t just about my changes. It’s the whole system. It’s the tech debt."
-
-    # Realization and starting to clean up the databases
-    say  "Hurdy’s growing because of all the neglected issues, all the forgotten databases. It’s not just me—it’s everything that’s piled up over time."
-
-    "I type quickly, pulling up the list of all the unused, bloated databases that have been accumulating for months. There's so much... more than I even realized."
-
-    say  "If I start cleaning this up... maybe I can stop this."
-
-    "I begin the process of clearing out the dead weight, deleting unnecessary databases, optimizing configurations that should have been fixed ages ago."
-
-    say  "No more shortcuts. I need to clean this entire system up if we’re going to have a chance."
-
-    # Visual chaos around the building starts to stabilize briefly again
-    "As I work, the shaking subsides once more. The flickering lights slow to a steady rhythm, the chaotic distortion of reality calming for the briefest moment."
-
-    say  "It’s working... I just have to keep going."
-
-    "But I know this isn’t going to be quick. The tech debt is deep. Hurdy isn’t just going to disappear with a few fixes."
-    "Still, I keep typing, clearing out every unnecessary file, every forgotten database. It’s the only way."
+    pause(1)
+    show flash
+    
+    
+        
+    jump to_be_continued
 
     return
 
