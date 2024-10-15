@@ -566,14 +566,20 @@ label get_help:
     act "Hours later, I sit at my desk, staring at the flickering light of my computer screen."
     act "After I left the classroom, everything happened so fast."
     
-    scene entrance with dissolve
+    show flashback
+    show entrance with dissolve
     act "The students gathered at the entrance in small groups, murmuring in confusion."
     act "Police cars and fire trucks quickly lined the street in front of the school, their lights flashing silently."
     act "SWAT teams marched into the building, fully armed, while we stood there without any news of what was happening inside."
     act "Eventually, we were told to evacuate the area..."
-
+    hide entrance
+    hide flashback
+    
     scene bedroom with fade
     act "Now, back in my room, I watch the news without fully processing what I'm seeing, the screen glowing faintly."
+    
+    scene campus destroyed
+    
     act "The live feed crackles with interference, a drone of distorted sound, as the camera focuses on the remains of the school."
     act "The building... it no longer resembles something made by human hands."
     act "The walls writhe and twist, a living structure, buckling under the weight of some unfathomable force."
@@ -585,7 +591,9 @@ label get_help:
     act "The sky... is no longer a sky. Something pressing down on the world, something multidimensional,.. greater than my limited senses can perceive."
 
     act "The feed flickers, the image distorting, breaking apart into shards of static. The world goes dark." 
+    
     scene black
+    
     say "This... is the end, isn’t it?"
     return
     
@@ -603,7 +611,7 @@ label rollback_changes:
     act "A moment later, a slick, writhing tentacle, trimmed in bright green, bursts through the floor, its touch warping the air around it."
     powershell "WHAT THE--?!"
     act "The green of the tentacles tugs at the edges of my mind, and suddenly it hits me. That green, the chirping--"
-    act "It hits me like a punch to the gut--Hurdy’s transformation isn’t some random anomaly. He’s been feeding off every shortcut, every system we patched over instead of fixing."
+    act "It hits me like a punch to the gut--[birb_name]’s transformation isn’t some random anomaly. He’s been feeding off every shortcut, every system we patched over instead of fixing."
     act "The tech debt… it’s been shaping him all along."
     
     show flashback_frame with dissolve
@@ -630,30 +638,30 @@ label rollback_changes:
     # todo: add flashback_frame to run away ending
     
     say "I know what this is!"
-    say "Quick, let's get out of here and I'll explain!"
-    act "As we run out of the building, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
+    say "Quick, follow me and I'll explain!"
+    act "As we run down the hall, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
+    jump captain_planet
     
-    scene walkway
-    show powershell at right
+label captain_planet:
+    scene cluster
+    show professor at left
+    show powershell at right    
     
     say "We need to clean up the databases!"
     powershell "Now?! In case you hadn't noticed, I was almost impaled by a giant, feathered tentacle!"
 
     show platform at left
-    platform "The fabric of reality is tearing apart, and you two are standing here talking?!"
-
-    act "I spin around, and there is Platform, appearing out of nowhere, pushing through the chaos." 
     
     say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed into this transformation." 
     say "We have to clean up our rogue databases."
-    
+    act "[professor_name]'s eyes narrow, weighing my words, before giving me a nod."
     act "I yank my laptop back out of my bag, the screen flickering to life. [powershell_name] and [platform_name] follow suit without a word."
     
-    platform "I think I have an old dev instance from last semester? No one's touched it in months."
+    powershell "I think I have an old dev instance from last semester? No one's touched it in months."
     
-    powershell "There's also that redundant staging environment from the marketing team. It’s been idle for weeks."
+    say "There's also that redundant staging environment from the marketing team. It’s been idle for weeks."
 
-    say "Right. And I’m pretty sure the demo environment for that canceled project is still up too."
+    powershell "Right. And I’m pretty sure the demo environment for that canceled project is still up too."
 
     act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."
     
@@ -661,43 +669,47 @@ label rollback_changes:
     
     say "It's working... we’re slowing it down!"
     
-    act "But just as hope flickers inside of us, [birb_name] lets out a low, guttural growl. The destruction surges back, buildings cracking and the ground buckling beneath us."
+    act "But just as hope flickers alive inside of us, [birb_name] lets out a low, guttural growl. The destruction surges back, a crack tearing through a nearby wall and the floor buckling beneath us."
     
     say "I don't think this is going to be enough. It's not like we were the only ones who took shortcuts to get things done."
-    say "Everyone did it. There are so many rogue environments I can't even count them."
-    say "Take a look at this--" 
+    say "Everyone did it. There are so many rogue environments I can't even count them. Take a look at this--" 
     act "Waving my hand, I gesture at my screen."
-    say "Who on earth is Dane, and why does he have 36 environments to himself? He's not the only one either. This person, Safety, has a handful too."
+    say "Who on earth is Dane, and why does he have 36 environments to himself? He's not the only one either."
     
-    platform "I know who we need! Come with me."
-    jump sarahvon
+    professor "I have an idea! Come with me."
+    jump broom_closet
     
-label sarahvon:
+label broom_closet:
     scene closet with dissolve
+    show professor at right
     
-    act "Platform leads us down a narrow, dim corridor, the air thick with an unnatural pressure as if the walls themselves are watching us."
+    act "[professor_name] leads us down a narrow, dim corridor, the air thick with an unnatural pressure as if the walls themselves are watching us."
     say "Where are we?"
-    platform "A forgotten server room. Come on. We should be safe in here for now."
+    professor "A forgotten server room. Come on. We should be safe in here for now."
     act "Inside, servers hum in the cramped space."
 
-    show sarahvon at left
+    show crab at left 
+    show fleet at left
     
-    platform "This is S.A.R.a.H.V.O.N. She maintains the databases as best she can. She'll be the best person to help us clean up the databases."
-    sarahvon "You’re [powershell_name], right? I heard you're pretty efficient--I need your help. I've got the perfect thing if we're finally going to blow away these rogue environments."
+    professor "This is [fleet_name]. She is responsible for a lot of the equipment at the school. She has been working on a project in her off time."
+    professor "[fleet_name], work with [powershell_name]. We need to clean up the databases."
+    fleet "On it!"
     
     show powershell at right
     
     powershell "Yeah, let’s do this."
     act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
     
-    platform "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
-    act "I follow Platform back outside, leaving PowerShell and [sarahvon_name] to their task."
+    professor "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
+    act "I follow [professor_name] back outside, leaving [powershell_name] and [fleet_name] to their task."
     
-    jump evacutation
+    jump evacuation
     
 label evacuation:
 
-    scene entrance with fade
+    scene walkway with fade
+    
+    show platform "Professor!"
      
     jump to_be_continued
 
