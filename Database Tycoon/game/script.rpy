@@ -334,15 +334,18 @@ label second_day:
     act "I lean forward, scanning the list: \"Future Entrepreneurs Club,\" \"Eco-Warriors,\" \"Tech Innovators\"... so many opportunities to apply what I’ve learned."
 
     prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
-    
+
     $ powershell_name = "PowerShell"
     $ persistent.powershell_name = powershell_name
-
-    prof "[professor_name] motions towards a student nearby. [player_name], you're with [powershell_name]."
+    
     show professor at left with move
     show powershell at right
-    act "[professor_name] continues down his list, assigning teams. PowerShell glances at me, her disinterest palpable. It’s clear she’d rather be anywhere else."
-
+    
+    act "[professor_name] motions towards a student nearby."
+    prof "[player_name], you're with [powershell_name]."
+    act "[professor_name] continues around the room, assigning teams."
+    hide professor
+    act "PowerShell glances at me, her disinterest palpable. It’s clear she’d rather be anywhere else."
     say "So,... should we get started?"
     powershell "What exactly do you mean by \"get started\"? I'm going to need you to be specific."
     say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
@@ -365,9 +368,9 @@ label first_shortcut:
 label pairing_session:
     scene dev building with fade    
 
-    act "Over the course of the next several months, [powershell_name] and I made a habit of grabbing some empty lounge chairs to work together in the Dev building."
+    act "Over the course of the next several months, [powershell_name] and I make a habit of grabbing some empty lounge chairs to work together in the Dev building."
     act "At first, our meetups were rocky—strained, to say the least."
-    act "But over the weeks, we’d settled into a kind of rhythm. Begrudging, sure, but it worked."
+    act "But over the weeks, we settled into a kind of rhythm. Begrudging, sure, but it worked."
     act "It turned out that [powershell_name] was technically quite capable, but also had a tendency to be finicky with requests."
 
     show powershell
@@ -460,7 +463,7 @@ label lunch_with_platform:
 label outage:
     scene dev building with fade
     # MC starts working on the system
-    act "A few weeks later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
+    act "A few weeks later I once again find myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
     show powershell
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
     jump third_shortcut
@@ -488,7 +491,7 @@ label third_shortcut:
     hide heavybid
     show powershell
     powershell "Several of the elastic pools are maxing out. CPU is at 200%%"
-    say "What the hell? That makes no sense. We’re not even pushing data... "
+    say "What the heck? That makes no sense. We’re not even pushing data... "
     act "From down the hallway, a faint, warbling chirp begins to steadily grow louder."
 
     act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side."
@@ -686,7 +689,7 @@ label broom_closet:
     act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
     prof "While they handle that, I need to coordinate an evacuation with the rest of the staff."
     prof "[player_name], find [platform_name] and see what you can do about orphaned data."
-    act "I follow [professor_name] back outside, leaving [powershell_name] and [fleet_name] to their task."
+    act "I follow [professor_name] outside, leaving [powershell_name] and [fleet_name] to their task."
     
     jump evacuation
     
@@ -702,7 +705,7 @@ label evacuation:
     act "I faintly register sirens in the distance."
     act "Just as we settle into a rhythm, our work is interrupted by an unsettling sound—metallic clanking and scraping, growing louder by the second."
     show crab army at right
-    act "I look up, and there, scuttling toward us, is an army of white crab-robots, their gleaming bodies reflecting the fractured sky."
+    act "I look up, and there, scuttling toward us, is an army of mechanoid crabs, their gleaming bodies reflecting the fractured sky."
     say "What the—?"
     act "The crabs swarm the walkway, their claws snapping with purpose. Instead of wreaking havoc, they descend on the remains of devices dropped outside in the evacuation."
     act "Looking closer, I realize that, inside the building, a host of them cover every surface—plugging into ports and jabbing at scattered wires, as if systematically cleaning up corrupted data."
