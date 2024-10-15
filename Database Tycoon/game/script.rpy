@@ -29,15 +29,15 @@ define platform = Character("[platform_name]", color="#5e7461")
 define powershell = Character("[powershell_name]", color="#0872c4")
 define fleet = Character("[fleet_name]", color="#00b5e2")
 
-default player_name = ""
-default birb_name = "???"
-default fleet_name = "???"
-default heavybid_name = "???"
-default heavyjob_name = "???"
-default professor_name = "???"
-default platform_name = "PowerShell"
-default powershell_name = "???"
-default receptionist_name = "???"
+default player_name = persistent.player_name if persistent.player_name else ""
+default birb_name = persistent.birb_name if persistent.birb_name else "???"
+default fleet_name = persistent.fleet_name if persistent.fleet_name else "???"
+default heavybid_name =persistent.heavybid_name if persistent.heavybid_name else  "???"
+default heavyjob_name = persistent.heavyjob_name if persistent.heavyjob_name else "???"
+default professor_name = persistent.professor_name if persistent.professor_name else "???"
+default platform_name = persistent.platform_name if persistent.platform_name else "???"
+default powershell_name = persistent.powershell_name if persistent.powershell_name else "???"
+default receptionist_name = persistent.receptionist_name if persistent.receptionist_name else "???"
 
 default investigated = False
 default encountered = False
@@ -127,12 +127,12 @@ label check_in:
 
     # Provide a default name if the player doesn't enter one
     if player_name == "":
-        r "Oh, hmm.... I'm not sure our system can handle that name." 
-        r "We'll call you Michael."
+        r "Oh, hmm.... I'm not sure our system can handle that name. We'll call you Michael."
         $ player_name = "Michael"
     else:
         r "It's good to meet you, [player_name]!"
-
+        
+    $ persistent.player_name = player_name
     r "What are you specializing in?"
     say "I'm studying database administration."
     r "That sounds difficult. What made you decide to study at HCSSHS?"
@@ -143,6 +143,7 @@ label check_in:
     act "She smiles and hands me a stack of papers and a name badge."  
     r "By the way,"
     $ receptionist_name = "Kaitlyn"
+    $ persistent.receptionist_name = receptionist_name
     r "By the way, my name is [receptionist_name]!"
     r "I help out the student council from time to time. I'm in charge of onboarding new students."
     act "She motions towards a hallway."
@@ -182,6 +183,7 @@ label first_day:
     act "A small girl next to her fidgets nervously"
     show heavyjob concerned at right
     $ heavybid_name = "HeavyBid"
+    $ persistent.heavybid_name = heavybid_name
     heavyjob "Five cents? I mean... it's pretty small, [heavybid_name]. C-Couldn't that be from an unplanned expense?"
     hb "Not when the numbers are this precise! Every penny should be accounted for."
     heavyjob "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
@@ -202,6 +204,7 @@ label lesson1:
     show professor
     prof "Welcome to Database Administration 304."
     $ professor_name = "Professor Diego"
+    $ persistent.professor_name = professor_name
     prof "Welcome to Database Administration 304. I'm [professor_name]."
     act "His heavily gnarled fingers and swollen knuckles jump out at me. There is no faking those."
     think "MS SQL calluses..."
@@ -217,6 +220,7 @@ label lesson1:
     prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
     act "A motion at the corner of my eye grabs my attention. A girl to my left has her hand raised."
     $ heavyjob_name = "HeavyJob"
+    $ persistent.heavyjob_name = heavyjob_name
     prof "[heavyjob_name], you have a question?"
     show professor at right with move
     show heavyjob concerned at left
@@ -276,10 +280,15 @@ label meet_birb_cont:
     pause(1)
     
     $ platform_name = "Platform"
+    $ persistent.platform_name = platform_name
+
     act "A quick glance at her name badge reveals her name to be [platform_name]"
     platform "He's kind of like our little mascot. I come out here to watch Hurdy all the time."
     say "Hurdy?"
+
     $ birb_name = "Hurdy Birb"
+    $ persistent.birb_name = birb_name
+
     platform "[birb_name]. That's his name. Well, that's what everyone calls him anyway."
     birb "*chirp* *chirp*"
     platform "He likes to hang around campus. I'm just glad the alligator isn't still around..."
@@ -325,7 +334,10 @@ label second_day:
     act "I lean forward, scanning the list: \"Future Entrepreneurs Club,\" \"Eco-Warriors,\" \"Tech Innovators\"... so many opportunities to apply what I’ve learned."
 
     prof "You will need to work in teams to create and manage these environments. Collaboration will be key, as you’ll need to ensure scalability and proper resource management."
+    
     $ powershell_name = "PowerShell"
+    $ persistent.powershell_name = powershell_name
+
     prof "[professor_name] motions towards a student nearby. [player_name], you're with [powershell_name]."
     show professor at left with move
     show powershell at right
@@ -337,13 +349,13 @@ label second_day:
     powershell "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
     jump first_shortcut
 
-label first_shortcut_flashback:
-    scene black with fade
-    scene cluster flashback with fade
-    show powershell at right
-    jump first_shortcut
-
 label first_shortcut:  
+    if _in_replay:
+        scene cluster flashback with fade
+        show powershell at right
+        $ player_name = persistent.player_name
+        $ powershell_name = persistent.powershell_name
+
     say "Right... let’s just create some duplicate databases off of the golden copy. We’ll figure out the rest later."
     act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
     $ renpy.end_replay()
@@ -363,12 +375,13 @@ label pairing_session:
     say "...and that should do it. Let’s just get this released."
     jump second_shortcut
 
-label second_shortcut_flashback:
-    scene black with fade
-    scene dev building flashback with fade
-    show powershell
-
 label second_shortcut:
+    if _in_replay:
+        scene dev building flashback with fade
+        show powershell
+        $ player_name = persistent.player_name
+        $ powershell_name = persistent.powershell_name
+
     act "I know I'm skipping over some finer details, but this latest round of environments is due in just a few hours. Details don’t matter, not today."
     powershell "Cutting corners again? Have you even bothered to test those changes?"
     say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
@@ -377,7 +390,7 @@ label second_shortcut:
     act "[powershell_name] gave me a sharp look, but she couldn’t argue."    
     powershell "Fine. Let’s just get it done."
     act "And with that, we pushed the update to production, neverminding about the finer details."
-    act "With the final changes pushed, we wrap up the work and mumble our way through the routine goodbye. I head outside, ready grab lunch."
+    act "With the final changes pushed, we wrap up the work and mumble our way through the routine goodbye. I head outside to grab lunch."
     jump birb_growing
 
 label birb_growing:
@@ -431,7 +444,7 @@ label lunch_with_platform:
     show heavyjob concerned at right
 
     heavyjob "Hey, have either of you seen Trucking around lately?"
-    platform "Trucking... from Fleet? No, I haven’t seen him in a while. Why, what’s up?"
+    platform "Trucking... from the Equipment team? No, I haven’t seen him in a while. Why, what’s up?"
     heavyjob "I needed to work on a project with him, but... he hasn’t shown up to school for days now."
     heavyjob "At first I figured he was ghosting me, but now I’m getting worried."
     say "Wait, Trucking? Isn’t he the guy who was always working on those massive environments?"
@@ -441,24 +454,24 @@ label lunch_with_platform:
 
     hide heavyjob
     
-    act "[platform_name] watches [heavyjob_name] walk away. Her smile falters for just a moment before she regains her composure."
+    act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
     jump outage
 
 label outage:
-    scene dev building
+    scene dev building with fade
     # MC starts working on the system
     act "A few weeks later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
     show powershell
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
     jump third_shortcut
 
-label third_shortcut_flashback:
-    scene black with fade
-    scene dev building flashback with fade
-    show powershell
-    jump third_shortcut
-
 label third_shortcut:
+    if _in_replay:
+        scene dev building flashback with fade
+        show powershell
+        $ player_name = persistent.player_name
+        $ powershell_name = persistent.powershell_name
+
     say "Realistically we need to optimize these queries, but we can deal with that later."
     $ renpy.end_replay()
     say "Just a few more tweaks—"
@@ -611,13 +624,14 @@ label rollback_changes:
     act "He’s been feeding off every shortcut, every system we patched over instead of fixing."
     hide flash
 
-    $ renpy.call_replay("first_shortcut_flashback")
-    $ renpy.call_replay("second_shortcut_flashback")
-    $ renpy.call_replay("third_shortcut_flashback")
+    $ renpy.call_replay("first_shortcut")
+    $ renpy.call_replay("second_shortcut")
+    $ renpy.call_replay("third_shortcut")
     
     # todo: add flashback_frame to run away ending
-    scene dev building
+    scene dev building with fade
     show flash
+    show powershell
     say "I know what this is! Follow me and I'll explain!"
     act "As we run down the hall, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
     jump captain_planet
@@ -634,13 +648,15 @@ label captain_planet:
     say "The tech debt… it’s been shaping him all along."
     say "We have to clean up our rogue databases."
     act "[professor_name]'s eyes narrow, weighing my words, before giving me a nod."
-    act "I yank my laptop back out of my bag, the screen flickering to life. [powershell_name] and [platform_name] follow suit without a word."
+    act "I yank my laptop back out of my bag, the screen flickering to life. [professor_name] and [powershell_name] follow suit without a word."
     powershell "I think I have an old dev instance from last semester? No one's touched it in months."    
     say "There's also that redundant staging environment from the marketing team. It’s been idle for weeks."
     powershell "Right. And I’m pretty sure the demo environment for that canceled project is still up too."
     act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."    
+    hide flash
     act "For a moment, the swirling chaos around the school seems to stall—walls stop rippling, and the ground ceases its tremors."    
     say "It's working... we’re slowing it down!"    
+    show flash
     act "But just as the first flicker of hope begins to take hold, [birb_name] lets out a low, guttural growl. The destruction surges back, a crack tearing through a nearby wall and the floor buckling beneath us."
     say "I don't think this is going to be enough. It's not like we were the only ones who took shortcuts to get things done."
     say "Everyone took shortcuts. There are so many rogue environments I can't even count them. Take a look at this—" 
@@ -660,7 +676,10 @@ label broom_closet:
 
     show crab
     show fleet at left
+    
     $ fleet_name = "Fleet"
+    $ persistent.fleet_name = fleet_name
+
     prof "This is [fleet_name]. She is responsible for a lot of the equipment at the school. She has been working on a project in her off time."
     prof "[fleet_name], work with [powershell_name]. We need to clean up the databases."
     fleet "On it!"
@@ -674,9 +693,9 @@ label broom_closet:
 label evacuation:
 
     scene walkway with fade
-    act "I hurry outside, nearly tripping as I run down the walkway. The sky above is swirling with unnatural colors, a constant reminder that time is running out. "
+    act "In my rush to find [platform_name], I nearly trip as I run down the walkway. The sky above is swirling with unnatural colors, a constant reminder that time is running out. "
     show platform at left
-    act "I scan the area until I spot [platform_name], watching the destruction from afar, shoulders slumped with the weight of disappointment and despair."
+    act "I scan the area until I spot her, watching the destruction from afar, shoulders slumped with the weight of disappointment and despair."
     say "[platform_name]! We don’t have time—we need to handle the orphaned data {i}now{/i}."
     act "[platform_name] turns to me, nodding with a tired, knowing look. Without a word, we both know what comes next—it’s time to clean up the mess before it gets any worse."
     act "Minutes pass in tense silence as we work,  broken only by the chaos of the world unraveling outside and the hurried clacks of our keyboards."
