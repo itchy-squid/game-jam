@@ -14,16 +14,6 @@ init python:
                 return name
             else:
                 return ""
-                
-    image flashback_frame = Frame(Solid("#000000"), 50, 50) 
-    
-    image flash:
-        "#f00"
-        alpha 0.0
-        linear .45 alpha 1.0     
-        linear .45 alpha 0.0
-        pause 2.0
-        repeat
 
 # r: https://cdn.midjourney.com/733e59b0-5e01-42ae-bdc6-d6b509e385d6/0_0.png
 # hb: 
@@ -44,17 +34,15 @@ define r = Character("[receptionist_name]", color="#FFFF00")
 define hb = Character("[heavybid_name]", color="#009639")
 define heavyjob = Character("[heavyjob_name]", color="#005eb8")
 define birb = Character("[birb_name]", color="#009639")
-define sf = Character("[safety_name]", color="")
 define prof = Character("[professor_name]", color="#8A2BE2")
 define platform = Character("[platform_name]")
-define powershell = Character("[powershell_name]")
+define powershell = Character("[powershell_name]", color="#0872c4")
 
 default player_name = ""
 
 default birb_name = "???"
 default heavybid_name = "???"
 default heavyjob_name = "???"
-default safety_name = "???"
 default professor_name = "???"
 default platform_name = "???"
 default powershell_name = "???"
@@ -65,6 +53,15 @@ default encountered = False
 
 image birb smoll = Image("hurdybirb.png", xalign = 0.9, yalign = 0.7)
 image hurdybirb still smoll = Image("hurdybirb still smoll.png", xalign = 0.9, yalign = 0.7)
+image flashback_frame = Frame(Solid("#000000"), 50, 50) 
+
+image flash:
+    "#f00"
+    alpha 0.0
+    linear .45 alpha 1.0     
+    linear .45 alpha 0.0
+    pause 2.0
+    repeat
 
 label splashscreen:
     scene splash
@@ -90,7 +87,7 @@ events is purely coincidental.{p}
 The authors are solely responsible for the content of this game. HCSS and
 its affiliates cannot be held responsible for any content or actions taken 
 by the authors."""
-    pause(3)
+    pause(8)
     show lawyer at right
     pause(3)
     hide text
@@ -111,7 +108,7 @@ label intro:
     
     scene entrance with fade
 
-    act "As I approach to the school, the world feels different. The excitement of a new beginning fills the air, mingled with the scent of fresh grass and morning dew."
+    act "As I approach the school, the world feels different. The excitement of a new beginning fills the air, mingled with the scent of fresh grass and morning dew."
     act "I can hardly believe I made it in. This prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
     act "It's my first day at HCSSHS—Heavy Construction Systems Specialists High School."    
     think "I just hope I can keep that acronym straight."
@@ -145,7 +142,7 @@ label check_in:
     r "What are you specializing in?"
     say "I'm studying database administration."
     r "That sounds difficult. What made you decide to study at HCSSHS?"
-    say "The program is unmatched. They don't just teach you how to manage one database -- you're thrown into a pool of them." 
+    say "The program is unmatched. They don't just teach you how to manage one database—you're thrown into a pool of them." 
     say "With dozens running simultaneously, the school's infrastructure is a beast. If I can make it here, I'm practically guaranteed to make it in the real world."
     act "The young woman raises her eyebrows, clearly impressed."
     r "Wow, sounds intense! I knew our program was tough, but I didn't realize it was {i}that{/i} demanding. Well, I hope you're ready for the challenge!"
@@ -195,7 +192,7 @@ label first_day:
     hb "Not when the numbers are this precise! Every penny should be accounted for."
     heavyjob "Could it be... I don't know, like maybe something technical? The databases? We've been adding more recently, haven't we?"
     act "The girl in green pauses, narrowing her eyes"
-    hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage -- everything."
+    hb "The databases... sure, their footprint has been growing, but I'm looking at the entire financial structure here. Infrastructure costs, maintenance, power usage—everything."
     hb "It all lines up. Everything except for those five cents."
     think "This conversation isn't really my business. I'd better get moving before I'm late for my first class."
     jump lesson1
@@ -209,39 +206,35 @@ label lesson1:
     
     act "A tall figure with a no-nonsense demeanor walks to the front and taps a button, causing the smartboard to display a vast network of interconnected nodes."
     show professor
-    prof "Welcome to Database Administration."
+    prof "Welcome to Database Administration 304."
     $ professor_name = "Professor Diego"
-    prof "Welcome to Database Administration. I'm [professor_name]."
+    prof "Welcome to Database Administration 304. I'm [professor_name]."
+    act "His heavily gnarled fingers and swollen knuckles jump out at me. There is no faking those."
+    think "MS SQL calluses..."
     prof "For some of you, this will be your first time managing live systems. For others, perhaps a continuation of previous experience. But let me make one thing absolutely clear from the beginning: our school runs on databases."
-    act "He gestures toward the screen, where diagrams show hundreds of interconnected nodes."
-    prof "Each of these nodes represents a simulated environment—a meticulously designed system that supports learning."
-    prof "Our school is famous for its broad library of learning materials, thanks to these environments. Whether you’re studying business strategy, engineering, or environmental science, there’s a database powering those lessons."
+    act "He gestures toward the screen."
+    prof "Every node you see here is a simulated environment—a meticulously designed system that not only grows, but learns."
+    prof "Our network ecosystem is every bit as alive as the Amazon rainforest, but twice as delicate and ten times as complicated."
+    prof "Whether you're studying business strategy, engineering, or underwater basket weaving, there's a database powering every single one of those lessons."
     act "He stops for a moment, his eyes scanning the class."
-    prof "However, there is a cost. The more databases we support, the greater the strain on our infrastructure. Scalability becomes a challenge, even here. Every query, every transaction, and every mismanaged piece of data adds up."
-    think "So, this school isn’t just running a few databases—they’re running hundreds. Maybe even a thousand?"
+    prof "However, there is a cost."
+    prof "Every table, every row is another straw precariously placed on the back of our infrastructure. I won't lie to you... scalability is a challenge."
+    think "Just how many databases does this place have?"
     prof "If there’s one thing you take away from this class, let it be this: Always clean up after yourself."
-#    prof "Every time you create a resource for testing, make sure you delete it when you’re done. Unnecessary databases are like dead weight, bogging down the system and potentially bringing it to its knees."
-    
-#    prof "Do not be the person who forgets to drop a test database, only to have it resurface when the system is at its limit."
     act "A motion at the corner of my eye grabs my attention. A girl to my left has her hand raised."
     $ heavyjob_name = "HeavyJob"
     prof "[heavyjob_name], you have a question?"
     show professor at right with move
     show heavyjob concerned at left
-    heavyjob "What happens if someone forgets?"
+    heavyjob "What happens... if someone forgets?"
     act "[professor_name] pauses for a moment, his expression turning grave."
     hide heavyjob
     show professor at center with move
     prof "Let me share a cautionary tale from a few years back."
     prof "One team of students neglected to clean up after a project."
-    prof "The leftover data started to conflict with other systems, and before we knew it, the server room was in chaos."
+    prof "The leftover data started to conflict with other systems. Before we knew it, the server room was in chaos."
     prof "It caught fire, and—well, we had to evacuate the building. Two students were unaccounted for during the evacuation."
     act "Gasps echo in the classroom as the weight of his words sinks in."
-#    prof "Thankfully, they were found later, shaken but safe. However, the incident served as a harsh reminder that what may seem like a small oversight can escalate into a serious situation."
-#    act "The classroom is quiet, the gravity of the story hanging in the air."
-    # prof "If you're careless, one mismanaged database might not seem like much, but multiply that by hundreds—thousands—and the consequences become clear. Even the smallest oversight can create cascading problems."
-    # prof "That's why responsible use is critical. You need to learn not only how to manage these databases but also how to maintain them."
-    
     prof "Now, with that out of the way, today we'll be going through the basics."
     prof "I want each of you to spin up your own environment. We'll work through the exercises together. When you are done, please make sure you clean up after yourself."    
     act "[professor_name] begins to walk between the rows of desks to help individual students and answer any questions."
@@ -251,7 +244,8 @@ label lesson1:
     
     menu:
         "EXEC sp_updatestats":
-            prof "Well done, [player_name]! I see you've done this before."
+            prof "Improving the real-time query performance? Well done, [player_name]! I see you've done this before."
+            prof "Make sure to keep an eye on your CPU and I/O overhead when you do that."
             act "I smile at the small praise before continuing on to the lesson."
             act "The next few hours pass in a blur of lectures and note-taking. Before I know it, class is over."
             jump meet_birb_cont
@@ -271,7 +265,7 @@ label lesson1:
             return 
     
 label meet_birb_cont:
-    scene walkway
+    scene walkway with fade
     act "As I head home for the day, a familiar figure catches my eye, this time perching in a young tree."
     show hurdybirb still smoll
     pause(1)
@@ -343,27 +337,24 @@ label second_day:
     show powershell at right
     act "[professor_name] continues down his list, assigning teams. PowerShell glances at me, her disinterest palpable. It’s clear she’d rather be anywhere else."
 
-    say "So, um, should we get started?"
-    powershell "What do you mean by 'get started'? I'm going to need you to be specific."
+    say "So,... should we get started?"
+    powershell "What exactly do you mean by \"get started\"? I'm going to need you to be specific."
     say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
     powershell "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
-    say "Right... let’s just create some duplicate databases off of the golden copy."
-    say "We’ll figure out the rest later."
+    say "Right... let’s just create some duplicate databases off of the golden copy. We’ll figure out the rest later."
     act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
     act "After an eternity of typing away in awkward silence, the class finally comes to an end."
     
     jump pairing_session
 
 label pairing_session:
+    scene dev building with fade    
 
-    scene dev building
-    with fade
+    act "Over the course of the next several months, [powershell_name] and I made a habit of grabbing some empty lounge chairs to work together in the Dev building."
+    act "At first, our meetups were rocky—strained, to say the least."
+    act "But over the weeks, we’d settled into a kind of rhythm. Begrudging, sure, but it worked."
+    act "It turned out that [powershell_name] was technically quite capable, but also had a tendency to be finicky with requests."
 
-    act "Over the course of the next several weeks, [powershell_name] and I made a habit of grabbing some empty lounge chairs to work together in the Dev building."
-    "At first, our meetups were rocky--strained, to say the least."
-    "But over the weeks, we’d settled into a kind of rhythm. Begrudging, sure, but it worked."
-    "It turned out that [powershell_name] was technically quite capable, but also had a tendency to be finicky with requests."
-    
     show powershell
     
     say "Let’s just get this released."
@@ -379,15 +370,16 @@ label pairing_session:
     powershell "Fine. Let’s just get it done."
 
     act "And with that, we pushed the update to production, neverminding about the finer details."
+    act "With the final changes pushed, we wrap up the work and mumble our way through the routine goodbye. I head outside, ready grab lunch."
 
     jump birb_growing
 
 label birb_growing:
     scene walkway
 
-    act "I step onto the walkway and spot the distinct green feathers of my tiny bird friend. "
+    act "As I step onto the walkway, I spot the distinct green feathers of my tiny bird friend. "
     show hurdybirb growing at right
-    act "As I get closer, I realize that [birb_name] is noticeably bigger than I remember. His once-cute features now have a disturbing edge."
+    act "Getting closer, I realize that [birb_name] is noticeably bigger than I remember. His once-cute features now have a disturbing edge."
     act "His feathers are ragged and disheveled, the vibrant colors dulled. Dark shadows dance around him, casting an eerie pallor over his form."
     birb "*chirp* *chorp*"
     act "With a low, guttural chirp, [birb_name] tilts his head at me, his movements twitchy and erratic, almost as if he’s struggling to maintain his composure."
@@ -415,62 +407,46 @@ label birb_growing:
         
     say "Yeah, great. I was just about to head to lunch."
     platform "Mind if I join you?"
-    
-#    menu:
-#        "Have lunch with [platform_name]":
     say "Sounds fun! I could use a change of pace."
     jump lunch_with_platform
-        
-#        "Have lunch alone":
-#            say "I'm not feeling great. I think I'm gonna get away a bit for some fresh air. Maybe another time."
-#            platform "No worries; you really do look awful. Feel better soon. If you need to take off, just let the teacher know."
-#            jump third_class
         
 label lunch_with_platform:
     scene lunchroom
     show platform at left
-    # todo continuity issues. he only just got access to prod. why would this complaint be valid.
+    
     act "As we chat about nothing in particular, I sit down at a table with [platform_name]."
     say "Ugh, I swear, I’m drowning in these databases."
     say "Every time I think I’ve got them under control, another one pops up out of nowhere."
     say "I can barely keep track anymore."
-
-    # Platform responds, trying to reassure the MC
     platform "Yeah, the workload can pile up fast. But hey, that’s the beauty of being here, right?"
     platform "Just think of it as... training for the real world."
     
-    # HeavyBid arrives and joins the conversation
     show heavyjob concerned at right
+
     heavyjob "Hey, have either of you seen Trucking around lately?"
     platform "Trucking... from Fleet? No, I haven’t seen him in a while. Why, what’s up?"
     heavyjob "I needed to work on a project with him, but... he hasn’t shown up to school for days now."
     heavyjob "At first I figured he was ghosting me, but now I’m getting worried."
     say "Wait, Trucking? Isn’t he the guy who was always working on those massive environments?"
     platform "Yeah, that’s him. Strange, though... Maybe he’s overloaded with work?"
-    heavyjob "I don’t know. I’m thinking of talking to the student council, but..."
-    platform "He disappears from time to time. I wouldn't worry too much."
-    heavyjob "You're probably right. If either of you spot him, let me know, please."
+    heavyjob "I don’t know. I’m thinking of talking to the student council, but, well..."
+    heavyjob "If either of you spot him, let me know, please."
+
     hide heavyjob
     
     act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
     jump outage
 
 label outage:
-    scene black with fade
-#    act "Over the next few weeks, the memory of that encounter with [birb_name] lingers in my mind. I frequently find myself distracted in class."
-#    act "As I sit through lectures and group projects, I can’t shake the feeling that something is off. My heart races every time I pass by the ledge where [birb_name] used to perch, half-expecting to see him there, waiting."
-#    act "Each day blurs into the next, a mix of studying, group work, and an underlying tension that keeps me on edge. The familiar halls of SCHHSH now feel more like a labyrinth of secrets than a place of learning."
-
-    # Set the scene with MC and PowerShell in the lab room
     scene dev building
-    show powershell at right
+    show powershell
 
     # MC starts working on the system
-    act "Some time later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
+    act "A few weeks later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
     say "Realistically we need to optimize these queries, but we can deal with that later."
     say "Just a few more tweaks—"
-    act "I hit the button to run my query and then several things happen at once--"
+    act "I hit the button to run my query and then several things happen at once—"
 
     # An alarm goes off, indicating something is wrong
     show flash
@@ -606,15 +582,17 @@ label rollback_changes:
 
     hide flash
     
-    act "For a brief moment, everything is frozen. The air hangs heavy in silence. Alerts stopped flashing. The incident management channel goes quiet."
+    act "For a brief moment, everything is frozen. The air hangs heavy in silence. Alerts stop flashing. The incident management channel goes quiet."
     show flash
     act "A moment later, a slick, writhing tentacle, trimmed in bright green, bursts through the floor, its touch warping the air around it."
-    powershell "WHAT THE--?!"
-    act "The green of the tentacles tugs at the edges of my mind, and suddenly it hits me. That green, the chirping--"
-    act "It hits me like a punch to the gut--[birb_name]’s transformation isn’t some random anomaly. He’s been feeding off every shortcut, every system we patched over instead of fixing."
+    powershell "WHAT THE—?!"
+    act "The green of the tentacles tugs at the edges of my mind, and suddenly it hits me. That green, the chirping, the alerts—"
+    act "It hits me like a punch to the gut—It's [birb_name], and his slow transformation hasn’t been some random anomaly."
+    act "He’s been feeding off every shortcut, every system we patched over instead of fixing."
     act "The tech debt… it’s been shaping him all along."
     
-    show flashback_frame with dissolve
+    # todo replace with replay function
+    show flashback_frame
     show cluster with dissolve
     show powershell at right
     say "Right... let’s just create some duplicate databases off of the golden copy."
@@ -629,28 +607,26 @@ label rollback_changes:
     hide dev building
     hide powershell
     
-    show dev buildling with dissolve
+    show dev building with dissolve
     show powershell at right
     say "Realistically we need to optimize these queries, but we can deal with that later."
-    hide dev building
+    # hide dev building
     hide flashback_frame
     
     # todo: add flashback_frame to run away ending
-    
-    say "I know what this is!"
-    say "Quick, follow me and I'll explain!"
+    show flash
+    say "I know what this is! Follow me and I'll explain!"
     act "As we run down the hall, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
     jump captain_planet
     
 label captain_planet:
     scene cluster
-    show professor at left
     show powershell at right    
-    
+    act "I burst into the classroom, relieved to find [professor_name] still there, sleeves rolled up and typing furiously at his terminal."
+    show professor at left
     say "We need to clean up the databases!"
     powershell "Now?! In case you hadn't noticed, I was almost impaled by a giant, feathered tentacle!"
 
-    show platform at left
     
     say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed into this transformation." 
     say "We have to clean up our rogue databases."
@@ -665,18 +641,17 @@ label captain_planet:
 
     act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."
     
-    act "For a moment, the swirling chaos around the school seems to stall--walls stop rippling, and the ground ceases its tremors."
+    act "For a moment, the swirling chaos around the school seems to stall—walls stop rippling, and the ground ceases its tremors."
     
     say "It's working... we’re slowing it down!"
     
-    act "But just as hope flickers alive inside of us, [birb_name] lets out a low, guttural growl. The destruction surges back, a crack tearing through a nearby wall and the floor buckling beneath us."
+    act "But just as the first flicker of hope begins to take hold, [birb_name] lets out a low, guttural growl. The destruction surges back, a crack tearing through a nearby wall and the floor buckling beneath us."
     
     say "I don't think this is going to be enough. It's not like we were the only ones who took shortcuts to get things done."
-    say "Everyone did it. There are so many rogue environments I can't even count them. Take a look at this--" 
+    say "Everyone took shortcuts. There are so many rogue environments I can't even count them. Take a look at this—" 
     act "Waving my hand, I gesture at my screen."
-    say "Who on earth is Dane, and why does he have 36 environments to himself? He's not the only one either."
-    
-    professor "I have an idea! Come with me."
+    say "Who on earth is Dane, and why does he have 36 environments to himself? He's not the only one either."    
+    prof "I have an idea! Come with me."
     jump broom_closet
     
 label broom_closet:
@@ -685,14 +660,14 @@ label broom_closet:
     
     act "[professor_name] leads us down a narrow, dim corridor, the air thick with an unnatural pressure as if the walls themselves are watching us."
     say "Where are we?"
-    professor "A forgotten server room. Come on. We should be safe in here for now."
+    prof "A forgotten server room. Come on. We should be safe in here for now."
     act "Inside, servers hum in the cramped space."
 
     show crab at left 
     show fleet at left
     
-    professor "This is [fleet_name]. She is responsible for a lot of the equipment at the school. She has been working on a project in her off time."
-    professor "[fleet_name], work with [powershell_name]. We need to clean up the databases."
+    prof "This is [fleet_name]. She is responsible for a lot of the equipment at the school. She has been working on a project in her off time."
+    prof "[fleet_name], work with [powershell_name]. We need to clean up the databases."
     fleet "On it!"
     
     show powershell at right
@@ -700,7 +675,7 @@ label broom_closet:
     powershell "Yeah, let’s do this."
     act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
     
-    professor "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
+    prof "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
     act "I follow [professor_name] back outside, leaving [powershell_name] and [fleet_name] to their task."
     
     jump evacuation
