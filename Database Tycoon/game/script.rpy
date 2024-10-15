@@ -25,9 +25,9 @@ define hb = Character("[heavybid_name]", color="#009639")
 define heavyjob = Character("[heavyjob_name]", color="#005eb8")
 define birb = Character("[birb_name]", color="#009639")
 define prof = Character("[professor_name]", color="#8A2BE2")
-define platform = Character("[platform_name]")
+define platform = Character("[platform_name]", color="#5e7461")
 define powershell = Character("[powershell_name]", color="#0872c4")
-define fleet = Character("[fleet_name]")
+define fleet = Character("[fleet_name]", color="#00b5e2")
 
 default player_name = ""
 default birb_name = "???"
@@ -35,7 +35,7 @@ default fleet_name = "???"
 default heavybid_name = "???"
 default heavyjob_name = "???"
 default professor_name = "???"
-default platform_name = "???"
+default platform_name = "PowerShell"
 default powershell_name = "???"
 default receptionist_name = "???"
 
@@ -44,7 +44,10 @@ default encountered = False
 
 image birb smoll = Image("hurdybirb.png", xalign = 0.9, yalign = 0.7)
 image hurdybirb still smoll = Image("hurdybirb still smoll.png", xalign = 0.9, yalign = 0.7)
-image flashback_frame = Frame(Solid("#000000"), 50, 50) 
+
+image cluster flashback = Transform("cluster",matrixcolor=SaturationMatrix(0.0))
+image dev building flashback = Transform("dev building",matrixcolor=SaturationMatrix(0.0))
+image entrance flashback =  Transform("entrance",matrixcolor=SaturationMatrix(0.0))
 
 image flash:
     "#f00"
@@ -335,7 +338,8 @@ label second_day:
     jump first_shortcut
 
 label first_shortcut_flashback:
-    scene cluster
+    scene black with fade
+    scene cluster flashback with fade
     show powershell at right
     jump first_shortcut
 
@@ -356,21 +360,24 @@ label pairing_session:
 
     show powershell
     
-    say "Let’s just get this released."
-    act "I know I was skipping over some finer details, but this latest round of environments is due in just a few hours. Details don’t matter, not today."
+    say "...and that should do it. Let’s just get this released."
+    jump second_shortcut
 
+label second_shortcut_flashback:
+    scene black with fade
+    scene dev building flashback with fade
+    show powershell
+
+label second_shortcut:
+    act "I know I'm skipping over some finer details, but this latest round of environments is due in just a few hours. Details don’t matter, not today."
     powershell "Cutting corners again? Have you even bothered to test those changes?"
-
     say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
     say "There's no good way to test this stuff. Something is better than nothing."
-
-    powershell "[powershell_name] gave me a sharp look, but she couldn’t argue."
-    
+    $ renpy.end_replay()
+    act "[powershell_name] gave me a sharp look, but she couldn’t argue."    
     powershell "Fine. Let’s just get it done."
-
     act "And with that, we pushed the update to production, neverminding about the finer details."
     act "With the final changes pushed, we wrap up the work and mumble our way through the routine goodbye. I head outside, ready grab lunch."
-
     jump birb_growing
 
 label birb_growing:
@@ -403,6 +410,8 @@ label birb_growing:
     if encountered:
         act "Reality snaps back into place as [platform_name]'s voice breaks through the haze of distortion."
         act "I shake my head, wondering if what just happened was real."
+    else:
+        act "I clear my head with a quick shake, snapping myself back to the present."
         
     say "Yeah, great. I was just about to head to lunch."
     platform "Mind if I join you?"
@@ -416,7 +425,6 @@ label lunch_with_platform:
     act "As we chat about nothing in particular, I sit down at a table with [platform_name]."
     say "Ugh, I swear, I’m drowning in these databases."
     say "Every time I think I’ve got them under control, another one pops up out of nowhere."
-    say "I can barely keep track anymore."
     platform "Yeah, the workload can pile up fast. But hey, that’s the beauty of being here, right?"
     platform "Just think of it as... training for the real world."
     
@@ -433,34 +441,45 @@ label lunch_with_platform:
 
     hide heavyjob
     
-    act "[platform_name] watches [heavyjob_name] walk away. [platform_name]'s smile falters for just a moment before she regains her composure."
+    act "[platform_name] watches [heavyjob_name] walk away. Her smile falters for just a moment before she regains her composure."
     jump outage
 
 label outage:
     scene dev building
-    show powershell
-
     # MC starts working on the system
     act "A few weeks later I once again found myself in the Dev building, tackling the class work neither [powershell_name] or I could avoid any longer."
+    show powershell
     say "Okay, I think I’ve isolated the issue. The database footprint is growing faster than we anticipated."
+    jump third_shortcut
+
+label third_shortcut_flashback:
+    scene black with fade
+    scene dev building flashback with fade
+    show powershell
+    jump third_shortcut
+
+label third_shortcut:
     say "Realistically we need to optimize these queries, but we can deal with that later."
+    $ renpy.end_replay()
     say "Just a few more tweaks—"
     act "I hit the button to run my query and then several things happen at once—"
 
     # An alarm goes off, indicating something is wrong
     show flash
-    act "Suddenly, all of our dashboard indicators flash red. Message after message begin flooding the incident management channel."
+    act "All of our dashboard indicators flash red. Simultaneously, a message pops up the incident management channel."
     act "{i}[[INCIDENT ALERT: Multiple environments are inaccessible. Please investigate.]{/i}"
-    show heavybid at left
+    act "Message after message flood in."
+    hide powershell
+    show heavybid frustrated at left
     hb "{i}[[The Estimating team can't get into its environments. A bunch of other students are saying they're locked out of their classes, too.]{/i}"
     hide heavybid
+    show powershell
     powershell "Several of the elastic pools are maxing out. CPU is at 200%%"
     say "What the hell? That makes no sense. We’re not even pushing data... "
     act "From down the hallway, a faint, warbling chirp begins to steadily grow louder."
 
-    if encountered:
-        act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side."
-        act "Overhead, the lights flicker violently, casting shifting shadows that seem to crawl along the ceiling, their shapes unnatural."
+    act "The walls around me begin to ripple like liquid, twisting and bulging as if something massive is pressing from the other side."
+    act "Overhead, the lights flicker violently, casting shifting shadows that seem to crawl along the ceiling, their shapes unnatural."
     
     menu: 
         "Investigate the chirping":
@@ -492,11 +511,10 @@ label investigate_chirping:
 
     act "His feathers have stretched into long, jagged spines, twisting into grotesque shapes."
     act "His once-small eyes glow with an eerie, unnatural light, now cold and piercing."
+    act "[birb_name]’s massive, monstrous form pulses in rhythm with the servers, as if the entire system is an extension of him now."
     act "Tentacle-like appendages extend from his wings, digging into the servers, feeding on the chaos."
-    act "The warbling chirping that once seemed harmless now distorts into a horrific screech, echoing through the room."
-    act "Hurdy’s massive, monstrous form pulses in rhythm with the servers, as if the entire system is an extension of him now."
 
-    act "Hurdy turns his gaze towards me. The low thumping of the servers, now in sync with Hurdy’s breathing, grows louder and more erratic."
+    act "[birb_name] turns his gaze towards me. The low thumping of the servers—now in sync with his breathing—grows louder and more erratic."
     act "Every instinct screams at me to act. I could stand my ground, but is that really the best choice? Maybe I can try to find help before it’s too late."
         
     menu:
@@ -507,7 +525,7 @@ label investigate_chirping:
             jump get_help
 
 label fight:
-    act "I steel myself, heart pounding, as the room seems to warp around me. The very air grows heavy, thick with... something. Hurdy's twisted, monstrous form looms impossibly large."
+    act "I steel myself, heart pounding, as the room seems to warp around me. The very air grows heavy, thick. [birb_name]'s twisted, monstrous form looms impossibly large."
     act "For a moment, everything is still."
     act "Then, it happens. A blur of motion, faster than thought, and the air is alive with the writhing of tendrils. I feel them move, weaving through the space between moments."
     act "I lash out instinctively, but my body betrays me—sluggish, stiff. Years of sitting at my desk, hunched over a terminal, come crashing down on me in this moment."
@@ -519,20 +537,25 @@ label fight:
 
     scene black with fade
 
-    act "The room melts into darkness, and all that remains is Hurdy—his form no longer confined by shape or logic. He is everything, everywhere, his tendrils an infinite web of control."
-    act "I can feel my mind unraveling, thoughts dissolving into fragments as the tendrils pulse, deeper, deeper... until I am no longer sure where Hurdy ends and I begin."
+    act "The room melts into darkness, and all that remains is [birb_name], his form no longer confined by shape or logic. He is everything, everywhere, his tendrils an infinite web of control."
+    act "I can feel my mind unraveling, thoughts dissolving into fragments as the tendrils pulse, deeper, deeper... until I am no longer sure where [birb_name] ends and I begin."
     think "Is this... me?"
-    act "Hurdy’s screech rises again, triumphant, but now it’s inside me. I am no longer separate. I am no longer... me."
-    act "I've become a reluctant ambassador to the new \"tentacled dimension\" unleashed by [birb_name]."
+    act "[birb_name]’s screech rises again, triumphant, but now it’s inside me. I am no longer separate. I am no longer... me."
+    act "I've become a reluctant ambassador to the new tentacled dimension unleashed by [birb_name]."
+
+    pause(2)
     return
 
 label get_help:
     act "There’s no time. I need to run."
     scene dev building
+    show flash
     # Scene: Hallways (MC running away)
     act "I sprint as fast as I can, but the air is thick with reality warping in on itself."
     scene cluster
     show professor
+    show flash
+    act "I burst into the classroom, relieved to find [professor_name] still there, sleeves rolled up and typing furiously at his terminal."
     say "[professor_name], [birb_name] has taken over the server room!"
     act "His eyes narrow with a piercing stare. A still moment passes, then he cracks his knuckles."
     prof "Evacuate the building. Get the students out of here. The staff will take care of this."
@@ -541,14 +564,12 @@ label get_help:
     act "Hours later, I sit at my desk, staring at the flickering light of my computer screen."
     act "After I left the classroom, everything happened so fast."
     
-    show flashback
-    show entrance with dissolve
+    scene black with fade
+    scene entrance flashback with fade
     act "The students gathered at the entrance in small groups, murmuring in confusion."
     act "Police cars and fire trucks quickly lined the street in front of the school, their lights flashing silently."
     act "SWAT teams marched into the building, fully armed, while we stood there without any news of what was happening inside."
     act "Eventually, we were told to evacuate the area..."
-    hide entrance
-    hide flashback
     
     scene bedroom with fade
     act "Now, back in my room, I watch the news without fully processing what I'm seeing, the screen glowing faintly."
@@ -565,18 +586,18 @@ label get_help:
 
     act "The sky... is no longer a sky. Something pressing down on the world, something multidimensional,.. greater than my limited senses can perceive."
 
-    act "The feed flickers, the image distorting, breaking apart into shards of static. The world goes dark." 
+    act "The feed flickering, the image distorts, breaking apart into shards of static. The world goes dark." 
     
     scene black
     
     say "This... is the end, isn’t it?"
+    pause(2)
     return
     
 label rollback_changes:
-    if encountered:
-        act "I can taste reality bending around me, but I can’t focus on that right now."
+    act "I can taste reality bending around me, but I can’t focus on that right now."
     act "I can't exactly roll back my query, but I can kill it. Maybe that will stabilize things."
-    say  "Alright. Let's just abort my last query. That should stop the bleeding."
+    say  "Alright. Let's just abort my last operation. That should stop the bleeding."
     act "[powershell_name]'s fingers fly across the keyboard as we begin to abort."
 
     hide flash
@@ -588,26 +609,14 @@ label rollback_changes:
     act "The green of the tentacles tugs at the edges of my mind, and suddenly it hits me. That green, the chirping, the alerts—"
     act "It hits me like a punch to the gut—It's [birb_name], and his slow transformation hasn’t been some random anomaly."
     act "He’s been feeding off every shortcut, every system we patched over instead of fixing."
-    act "The tech debt… it’s been shaping him all along."
-    
-    # todo replace with replay function
+    hide flash
+
     $ renpy.call_replay("first_shortcut_flashback")
-    with fade
-    
-    # show dev building with dissolve
-    show powershell
-    powershell "Cutting corners again? Have you even bothered to test those changes?"
-    say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
-    # hide dev building
-    hide powershell
-    
-    # show dev building with dissolve
-    show powershell at right
-    say "Realistically we need to optimize these queries, but we can deal with that later."
-    # hide dev building
-    hide flashback_frame
+    $ renpy.call_replay("second_shortcut_flashback")
+    $ renpy.call_replay("third_shortcut_flashback")
     
     # todo: add flashback_frame to run away ending
+    scene dev building
     show flash
     say "I know what this is! Follow me and I'll explain!"
     act "As we run down the hall, the walls ripple in a gelatinous motion, bending and twisting, threatening the fabric of my sanity."
@@ -615,32 +624,24 @@ label rollback_changes:
     
 label captain_planet:
     scene cluster
+    show flash
     show powershell at right    
-    act "I burst into the classroom, relieved to find [professor_name] still there, sleeves rolled up and typing furiously at his terminal."
     show professor at left
+    act "I burst into the classroom, relieved to find [professor_name] still there, sleeves rolled up and typing furiously at his terminal."
     say "We need to clean up the databases!"
     powershell "Now?! In case you hadn't noticed, I was almost impaled by a giant, feathered tentacle!"
-
-    
-    say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things, every time we took an easy way out, we fed into this transformation." 
+    say "It's [birb_name]! He's tied into our tech debt! Every time we rushed through things we fed into this transformation." 
+    say "The tech debt… it’s been shaping him all along."
     say "We have to clean up our rogue databases."
     act "[professor_name]'s eyes narrow, weighing my words, before giving me a nod."
     act "I yank my laptop back out of my bag, the screen flickering to life. [powershell_name] and [platform_name] follow suit without a word."
-    
-    powershell "I think I have an old dev instance from last semester? No one's touched it in months."
-    
+    powershell "I think I have an old dev instance from last semester? No one's touched it in months."    
     say "There's also that redundant staging environment from the marketing team. It’s been idle for weeks."
-
     powershell "Right. And I’m pretty sure the demo environment for that canceled project is still up too."
-
-    act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."
-    
-    act "For a moment, the swirling chaos around the school seems to stall—walls stop rippling, and the ground ceases its tremors."
-    
-    say "It's working... we’re slowing it down!"
-    
+    act "A monstrous screeching rolls across the campus, as our frantic cleanup starts to take effect."    
+    act "For a moment, the swirling chaos around the school seems to stall—walls stop rippling, and the ground ceases its tremors."    
+    say "It's working... we’re slowing it down!"    
     act "But just as the first flicker of hope begins to take hold, [birb_name] lets out a low, guttural growl. The destruction surges back, a crack tearing through a nearby wall and the floor buckling beneath us."
-    
     say "I don't think this is going to be enough. It's not like we were the only ones who took shortcuts to get things done."
     say "Everyone took shortcuts. There are so many rogue environments I can't even count them. Take a look at this—" 
     act "Waving my hand, I gesture at my screen."
@@ -673,9 +674,9 @@ label broom_closet:
 label evacuation:
 
     scene walkway with fade
-    act "I burst through the door, nearly tripping as I hurry down the walkway. The sky above is swirling with unnatural colors, a constant reminder that time is running out. "
+    act "I hurry outside, nearly tripping as I run down the walkway. The sky above is swirling with unnatural colors, a constant reminder that time is running out. "
     show platform at left
-    act "I scan the area until I spot [platform_name], her gaze unfocused, shoulders slumped with the weight of disappointment and despair."
+    act "I scan the area until I spot [platform_name], watching the destruction from afar, shoulders slumped with the weight of disappointment and despair."
     say "[platform_name]! We don’t have time—we need to handle the orphaned data {i}now{/i}."
     act "[platform_name] turns to me, nodding with a tired, knowing look. Without a word, we both know what comes next—it’s time to clean up the mess before it gets any worse."
     act "Minutes pass in tense silence as we work,  broken only by the chaos of the world unraveling outside and the hurried clacks of our keyboards."
@@ -699,7 +700,7 @@ label evacuation:
     hide crab army
     show hurdybirb final
     act "For the first time, I see [birb_name] in his monstrous form—twisted, grotesque, a mockery of the bird he once was."
-    act "He screeches, a desperate, ear-splitting cry, thrashing his wings thrashing in vain as he fights against his own failing strength."
+    act "He screeches, a desperate, ear-splitting cry, thrashing his wings in vain as he fights against his own failing strength."
     act "Even the sky, once twisted and bent to his will, rejects him now."
     act "He falters, wings trembling as they lose their power. With a final shudder, Hurdy plummets back to the ground, defeated."     
     hide hurdybirb final   
@@ -712,24 +713,24 @@ label conclusion:
     act "We're all frozen, still trying to comprehend how the destruction had erupted so suddenly—and disappeared just as quickly."
     act "But soon, I hear footsteps behind me."
     show professor at left
-    pause(1)
+    pause(0.5)
     prof "Well done. You figured it out. For that, I thank you."
     hide professor
     show platform at right
-    pause(1)
+    pause(0.5)
     platform "You didn’t lose hope, even when it felt like everything was falling apart. That’s why we’re still here."
     hide platform
     show heavybid at left
-    pause(1)
+    pause(0.5)
     hb "That missing 5 cents... I knew it wasn't something we could afford to ignore. Small cracks bring everything down."
     hide heavybid
     show heavyjob at right
-    pause(1)
+    pause(0.5)
     heavyjob "We’ve got a lot of rebuilding to do, but luckily, coordinating construction is what we do best."
     hide heavyjob
     show fleet at left
-    pause(1)
-    fleet "Well, at least the environments are clean now. And the crabs? I’d say they’ve earned their keep."
+    pause(0.5)
+    fleet "At least the environments are clean now. And the crabs? I’d say they’ve earned their keep."
     hide fleet
     jump credits
   
@@ -740,7 +741,7 @@ label credits:
 Thank you for playing Database Tycoon. I hope you 
 enjoyed the journey as much as I enjoyed creating it.
 """
-    pause(6)
+    pause(4)
 
     show text """
   {b}Developer{/b} asanti
