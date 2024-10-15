@@ -70,7 +70,7 @@ This game contains themes and elements that may be
 unsettling to some readers. It is not suitable for young 
 children or individuals who are easily disturbed. Player 
 discretion is advised."""
-    pause(4)
+    pause(8)
     show text """
 The characters, locations, and events depicted in this game are entirely 
 fictional. Any resemblance to actual persons, living or dead, or actual 
@@ -78,7 +78,7 @@ events is purely coincidental.{p}
 The authors are solely responsible for the content of this game. HCSS and
 its affiliates cannot be held responsible for any content or actions taken 
 by the authors."""
-    pause(8)
+    pause(10)
     show lawyer at right
     pause(3)
     hide text
@@ -332,10 +332,18 @@ label second_day:
     powershell "What exactly do you mean by \"get started\"? I'm going to need you to be specific."
     say "Okay, um, we need to create the environment for the Future Entrepreneurs Club. Let’s start with that."
     powershell "And what about the structure? What tables do you want? What data types? They only gave us a one-sentence description of what they want."
+    jump first_shortcut
+
+label first_shortcut_flashback:
+    scene cluster
+    show powershell at right
+    jump first_shortcut
+
+label first_shortcut:  
     say "Right... let’s just create some duplicate databases off of the golden copy. We’ll figure out the rest later."
     act "With that, I start typing, eager to grind something out before PowerShell has the chance to criticize me further."
+    $ renpy.end_replay()
     act "After an eternity of typing away in awkward silence, the class finally comes to an end."
-    
     jump pairing_session
 
 label pairing_session:
@@ -583,22 +591,17 @@ label rollback_changes:
     act "The tech debt… it’s been shaping him all along."
     
     # todo replace with replay function
-    show flashback_frame
-    show cluster with dissolve
-    show powershell at right
-    say "Right... let’s just create some duplicate databases off of the golden copy."
-    say "We’ll figure out the rest later."
-    hide cluster
-    hide powershell
+    $ renpy.call_replay("first_shortcut_flashback")
+    with fade
     
-    show dev building with dissolve
+    # show dev building with dissolve
     show powershell
     powershell "Cutting corners again? Have you even bothered to test those changes?"
     say "You’ve been cutting corners too. Or do you want to tell me that last hotfix was perfect?"
-    hide dev building
+    # hide dev building
     hide powershell
     
-    show dev building with dissolve
+    # show dev building with dissolve
     show powershell at right
     say "Realistically we need to optimize these queries, but we can deal with that later."
     # hide dev building
@@ -661,7 +664,8 @@ label broom_closet:
     prof "[fleet_name], work with [powershell_name]. We need to clean up the databases."
     fleet "On it!"
     act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
-    prof "While they handle that, [player_name], come with me."
+    prof "While they handle that, I need to coordinate an evacuation with the rest of the staff."
+    prof "[player_name], find [platform_name] and see what you can do about orphaned data."
     act "I follow [professor_name] back outside, leaving [powershell_name] and [fleet_name] to their task."
     
     jump evacuation
@@ -669,34 +673,89 @@ label broom_closet:
 label evacuation:
 
     scene walkway with fade
-     
-    jump to_be_continued
+    act "I burst through the door, nearly tripping as I hurry down the walkway. The sky above is swirling with unnatural colors, a constant reminder that time is running out. "
+    show platform at left
+    act "I scan the area until I spot [platform_name], her gaze unfocused, shoulders slumped with the weight of disappointment and despair."
+    say "[platform_name]! We don’t have time—we need to handle the orphaned data {i}now{/i}."
+    act "[platform_name] turns to me, nodding with a tired, knowing look. Without a word, we both know what comes next—it’s time to clean up the mess before it gets any worse."
+    act "Minutes pass in tense silence as we work,  broken only by the chaos of the world unraveling outside and the hurried clacks of our keyboards."
+    act "I faintly register sirens in the distance."
+    act "Just as we settle into a rhythm, our work is interrupted by an unsettling sound—metallic clanking and scraping, growing louder by the second."
+    show crab army at right
+    act "I look up, and there, scuttling toward us, is an army of white crab-robots, their gleaming bodies reflecting the fractured sky."
+    say "What the—?"
+    act "The crabs swarm the walkway, their claws snapping with purpose. Instead of wreaking havoc, they descend on the remains of devices dropped outside in the evacuation."
+    act "Looking closer, I realize that, inside the building, a host of them cover every surface—plugging into ports and jabbing at scattered wires, as if systematically cleaning up corrupted data."
+    act "Screens flicker, code rearranges itself, and servers hum back to life under their mechanical pincers."
+    say "Are they... cleaning up the databases?"
+    hide platform
+    show fleet at left
+    fleet "Those are S.I.M.O.N., our automated garbage collectors!"
+    act "[fleet_name] appears out of nowhere, a grin spreading across her face, clearly proud of her newly deployed army of mechanical cleaners."
+    fleet "I prototyped them to handle small messes, but with [powershell_name]'s help we've got them doing overtime now!"
+    act "The crabs scuttle across the wreckage with methodical precision, their pincers snapping as they meticulously reassemble shattered systems and clean up corrupted data."
+    act "Suddenly, a shadow passes overhead, and I look up just in time to see a bright green form burst from the crumbling building, wings thrashing wildly as he soars into the sky."
+    hide fleet
+    hide crab army
+    show hurdybirb final
+    act "For the first time, I see [birb_name] in his monstrous form—twisted, grotesque, a mockery of the bird he once was."
+    act "He screeches, a desperate, ear-splitting cry, thrashing his wings thrashing in vain as he fights against his own failing strength."
+    act "Even the sky, once twisted and bent to his will, rejects him now."
+    act "He falters, wings trembling as they lose their power. With a final shudder, Hurdy plummets back to the ground, defeated."     
+    hide hurdybirb final   
+    act "The world around us shudders as the once sprawling tentacles of [birb_name] begin to twitch and retract."
+    act "The twisted sky starts to settle, the strange hues fading into a dull, bruised gray."
+    jump conclusion
 
-label to_be_continued:
-    scene black with fade
-    show text "to be continued..."
-    pause (3)
+label conclusion:
+    act "For a moment, none of the students or faculty, who had gathered outside during the evacuation, move."
+    act "We're all frozen, still trying to comprehend how the destruction had erupted so suddenly—and disappeared just as quickly."
+    act "But soon, I hear footsteps behind me."
+    show professor at left
+    pause(1)
+    prof "Well done. You figured it out. For that, I thank you."
+    hide professor
+    show platform at right
+    pause(1)
+    platform "You didn’t lose hope, even when it felt like everything was falling apart. That’s why we’re still here."
+    hide platform
+    show heavybid at left
+    pause(1)
+    hb "That missing 5 cents... I knew it wasn't something we could afford to ignore. Small cracks bring everything down."
+    hide heavybid
+    show heavyjob at right
+    pause(1)
+    heavyjob "We’ve got a lot of rebuilding to do, but luckily, coordinating construction is what we do best."
+    hide heavyjob
+    show fleet at left
+    pause(1)
+    fleet "Well, at least the environments are clean now. And the crabs? I’d say they’ve earned their keep."
+    hide fleet
     jump credits
   
 label credits:
     scene black with fade
 
     show text """
-{b}Executive Producer{/b} Amand Santi
-    {b}Screenwriter{/b} ChatGPT
-     {b}Lead Animator{/b} Midjourney
-                 {b}Key Grip{/b} Simon Santi
-      {b}Best Boy Grip{/b} Tony Santi
-"""
-    pause(4)
-    show text """
 Thank you for playing Database Tycoon. I hope you 
-enjoyed the journey as much as I enjoyed creating it.{p}
-A big thanks goes to Falk, and to HCSS, without whom 
-this game would not exist. I am also incredibly grateful 
-to my friends, family, and especially my husband, who 
-all generously put up with my clumsy writing and 
+enjoyed the journey as much as I enjoyed creating it.
+"""
+    pause(6)
+
+    show text """
+  {b}Developer{/b} asanti
+ {b}Screenwriter{/b} ChatGPT
+  {b}Lead Animator{/b} Midjourney
+         {b}Key Grip{/b} sighmun
+{b}Best Boy Grip{/b} lordtony
+"""
+    pause(8)
+    show text """
+A big thanks goes to Mr. Sacralidge, and to HCSS, without 
+whom this game would not exist. I am also incredibly 
+grateful to my friends, family, and especially my husband, 
+who all generously put up with my clumsy writing and 
 endless brainstorming.
 """
-    pause
+    pause(16)
     return
