@@ -30,6 +30,7 @@ define config.version = "0.5"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
+Made by Amanda Santi
 """)
 
 

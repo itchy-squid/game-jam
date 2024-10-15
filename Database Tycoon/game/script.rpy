@@ -15,21 +15,11 @@ init python:
             else:
                 return ""
 
-# r: https://cdn.midjourney.com/733e59b0-5e01-42ae-bdc6-d6b509e385d6/0_0.png
-# hb: 
-#   neutral serious girl, hugging folders with papers, school uniform with green accents, long ash brown curly hair, bangs, isekai anime style, 3/4 body shot, white background https://s.mj.run/pmx1EzK5m6c
-# hj: https://cdn.midjourney.com/d922501c-e707-45c2-80f6-d1643217c5b4/0_1.png
-# 
-# birb: https://cdn.midjourney.com/fa34cb9e-da8d-4e06-b6c7-e08adbbde87f/0_1.png
-#
-# platform: https://cdn.midjourney.com/cc5a4c41-2885-489d-8c13-ae9771a5386b/0_1.png
-# 
-
-# Declare characters used by this game. The color argument colorizes the name of the character.
 define say = Character("[player_name]", what_color="#ffffff")
-define act = Character(None, what_color="#c0c0c0", what_italic=True)#, what_prefix="(", what_suffix=")")
+define act = Character(None, what_color="#c0c0c0", what_italic=True)
 define think = Character("[player_name]", what_color="#c0c0c0", what_italic=True)
 
+#todo colors
 define r = Character("[receptionist_name]", color="#FFFF00")
 define hb = Character("[heavybid_name]", color="#009639")
 define heavyjob = Character("[heavyjob_name]", color="#005eb8")
@@ -37,10 +27,11 @@ define birb = Character("[birb_name]", color="#009639")
 define prof = Character("[professor_name]", color="#8A2BE2")
 define platform = Character("[platform_name]")
 define powershell = Character("[powershell_name]", color="#0872c4")
+define fleet = Character("[fleet_name]")
 
 default player_name = ""
-
 default birb_name = "???"
+default fleet_name = "???"
 default heavybid_name = "???"
 default heavyjob_name = "???"
 default professor_name = "???"
@@ -663,19 +654,14 @@ label broom_closet:
     prof "A forgotten server room. Come on. We should be safe in here for now."
     act "Inside, servers hum in the cramped space."
 
-    show crab at left 
+    show crab
     show fleet at left
-    
+    $ fleet_name = "Fleet"
     prof "This is [fleet_name]. She is responsible for a lot of the equipment at the school. She has been working on a project in her off time."
     prof "[fleet_name], work with [powershell_name]. We need to clean up the databases."
     fleet "On it!"
-    
-    show powershell at right
-    
-    powershell "Yeah, let’s do this."
     act "Somewhere above, I hear the groan of shifting foundations, as if the very bones of the school are bending." 
-    
-    prof "Good. While they handle that, come with me. We need to help evacuate the school before it collapses."
+    prof "While they handle that, [player_name], come with me."
     act "I follow [professor_name] back outside, leaving [powershell_name] and [fleet_name] to their task."
     
     jump evacuation
@@ -683,16 +669,34 @@ label broom_closet:
 label evacuation:
 
     scene walkway with fade
-    
-    show platform "Professor!"
      
     jump to_be_continued
-
-    return
 
 label to_be_continued:
     scene black with fade
     show text "to be continued..."
+    pause (3)
+    jump credits
+  
+label credits:
+    scene black with fade
+
+    show text """
+{b}Executive Producer{/b} Amand Santi
+    {b}Screenwriter{/b} ChatGPT
+     {b}Lead Animator{/b} Midjourney
+                 {b}Key Grip{/b} Simon Santi
+      {b}Best Boy Grip{/b} Tony Santi
+"""
+    pause(4)
+    show text """
+Thank you for playing Database Tycoon. I hope you 
+enjoyed the journey as much as I enjoyed creating it.{p}
+A big thanks goes to Falk, and to HCSS, without whom 
+this game would not exist. I am also incredibly grateful 
+to my friends, family, and especially my husband, who 
+all generously put up with my clumsy writing and 
+endless brainstorming.
+"""
     pause
     return
-  
