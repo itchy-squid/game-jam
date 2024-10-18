@@ -63,6 +63,15 @@ label splashscreen:
 
 # The game starts here.
 label start:
+    $ player_name = ""
+    $ birb_name = "???"
+    $ fleet_name = "???"
+    $ heavybid_name = "???"
+    $ heavyjob_name = "???"
+    $ professor_name = "???"
+    $ platform_name = "???"
+    $ powershell_name = "???"
+    $ receptionist_name = "???"
     jump legal
     
 label legal:
@@ -101,6 +110,7 @@ label intro:
     think "I guess I'd better get ready."
     
     scene entrance with fade
+    play music "audio/background.ogg"
 
     act "As I approach the school, the world feels different. The excitement of a new beginning fills the air, mingled with the scent of fresh grass and morning dew."
     act "I can hardly believe I made it in. This prestigious school, known for its intense programs and top-notch facilities, is finally mine to explore."
@@ -115,7 +125,10 @@ label intro:
     
 label check_in:
     scene receptionist_desk
+    play music "audio/background-2.ogg"
+
     act "As I open the door to step inside, I'm greeted by a young woman behind a desk."
+
     show receptionist
     pause(0.5)
 
